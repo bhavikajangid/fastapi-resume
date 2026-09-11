@@ -329,15 +329,17 @@
 
 <div class="overlay" id="authOverlay" role="dialog" aria-modal="true" aria-labelledby="authTitle">
   <div class="modal">
-    <div class="modal-head"><h3 id="authTitle">Available authorizations</h3><button type="button" id="authClose" aria-label="Close">×</button></div>
+    <div class="modal-head"><h3 id="authTitle">Get in touch</h3><button type="button" id="authClose" aria-label="Close">×</button></div>
     <div class="modal-body">
-      <p>This API is fully public — no key required. But if you're a recruiter, consider yourself pre-authorized. 🙂</p>
-      <label for="apiKeyInput">apiKey <span style="color:var(--muted);font-weight:400">(name: X-Recruiter-Token, in: header)</span></label>
-      <input id="apiKeyInput" placeholder="paste anything — it all works" spellcheck="false">
+      <p>No API key needed — just say hi. Drop a note and it opens in your mail client, addressed to me.</p>
+      <label for="authSubject">Subject</label>
+      <input id="authSubject" placeholder="e.g. Backend role at Acme" spellcheck="false">
+      <label for="authMessage" style="margin-top:12px">Message</label>
+      <input id="authMessage" placeholder="Hi Bhavika, …" spellcheck="false">
     </div>
     <div class="modal-foot">
       <button type="button" class="ghost" id="authCancel">Close</button>
-      <button type="button" class="primary" id="authDo">Authorize</button>
+      <button type="button" class="primary" id="authDo">Send email ✉️</button>
     </div>
   </div>
 </div>
@@ -790,18 +792,19 @@
     root.setAttribute("data-theme", current === "dark" ? "light" : "dark");
   });
 
-  // ---------- authorize modal ----------
+  // ---------- authorize modal → send email ----------
   var overlay = document.getElementById("authOverlay");
-  function openAuth() { overlay.classList.add("show"); document.getElementById("apiKeyInput").focus(); }
+  function openAuth() { overlay.classList.add("show"); document.getElementById("authSubject").focus(); }
   function closeAuth() { overlay.classList.remove("show"); }
   document.getElementById("authBtn").addEventListener("click", openAuth);
   document.getElementById("authClose").addEventListener("click", closeAuth);
   document.getElementById("authCancel").addEventListener("click", closeAuth);
   document.getElementById("authDo").addEventListener("click", function () {
-    var btn = document.getElementById("authBtn");
-    btn.innerHTML = 'Authorized <span aria-hidden="true">🔒</span>';
+    var subject = document.getElementById("authSubject").value.trim() || "Hello from your portfolio";
+    var body = document.getElementById("authMessage").value.trim();
+    var href = "mailto:bhavikajangid02@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    window.location.href = href;
     closeAuth();
-    setTimeout(function () { btn.innerHTML = 'Authorize <span aria-hidden="true">🔓</span>'; }, 2200);
   });
   overlay.addEventListener("click", function (e) { if (e.target === overlay) closeAuth(); });
 
