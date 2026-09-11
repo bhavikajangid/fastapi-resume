@@ -1,3 +1,4 @@
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23009688'/%3E%3Cpath%20d='M35%206%20L14%2037%20h13%20l-6%2021%2023%20-33%20h-13%20z'%20fill='white'/%3E%3C/svg%3E">
 <title>Bhavika Jangid · API Docs</title>
 <style>
   :root {
@@ -20,15 +21,9 @@
     --put: #fca130;   --put-bg: rgba(252,161,48,.12);   --put-ink: #b06f0f;
     --del: #f93e3e;   --del-bg: rgba(249,62,62,.10);    --del-ink: #c22;
 
-    --j-key: #00786c;
-    --j-str: #b5416b;
-    --j-num: #0b7285;
-    --j-bool: #a15c00;
-    --j-null: #a33;
-    --j-punct: #8a94a2;
-
     --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    --topbar-h: 60px;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -41,7 +36,6 @@
       --post-bg: rgba(73,204,144,.14); --post-ink: #56d99b;
       --put-bg: rgba(252,161,48,.14); --put-ink: #ffbb5c;
       --del-bg: rgba(249,62,62,.14); --del-ink: #ff7b72;
-      --j-key: #4fd1c5; --j-str: #f0a6c4; --j-num: #79c0ff; --j-bool: #ffab70; --j-null: #ff7b72; --j-punct: #7d8896;
     }
   }
   :root[data-theme="light"] {
@@ -54,7 +48,6 @@
     --post-bg: rgba(73,204,144,.12); --post-ink: #2f8a63;
     --put-bg: rgba(252,161,48,.12); --put-ink: #b06f0f;
     --del-bg: rgba(249,62,62,.10); --del-ink: #c22;
-    --j-key: #00786c; --j-str: #b5416b; --j-num: #0b7285; --j-bool: #a15c00; --j-null: #a33; --j-punct: #8a94a2;
   }
   :root[data-theme="dark"] {
     --bg: #0d1117; --surface: #161b22; --surface-2: #1a2029; --surface-3: #20272f;
@@ -66,18 +59,18 @@
     --post-bg: rgba(73,204,144,.14); --post-ink: #56d99b;
     --put-bg: rgba(252,161,48,.14); --put-ink: #ffbb5c;
     --del-bg: rgba(249,62,62,.14); --del-ink: #ff7b72;
-    --j-key: #4fd1c5; --j-str: #f0a6c4; --j-num: #79c0ff; --j-bool: #ffab70; --j-null: #ff7b72; --j-punct: #7d8896;
   }
 
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
   a { color: var(--brand-strong); text-decoration: none; }
   a:hover { text-decoration: underline; }
   :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 3px; }
 
   /* ---------- Top bar ---------- */
-  .topbar { background: linear-gradient(90deg, var(--brand-strong), var(--brand)); padding: 12px 0; box-shadow: 0 2px 10px rgba(0,120,108,.25); position: sticky; top: 0; z-index: 20; }
-  .topbar-inner { max-width: 1160px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 16px; }
+  .topbar { background: linear-gradient(90deg, var(--brand-strong), var(--brand)); height: var(--topbar-h); display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,120,108,.25); position: sticky; top: 0; z-index: 40; }
+  .topbar-inner { max-width: 1280px; width: 100%; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 16px; }
   .brand { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 800; font-size: 18px; letter-spacing: .3px; white-space: nowrap; }
   .brand .bolt { width: 26px; height: 26px; display: grid; place-items: center; background: rgba(255,255,255,.16); border-radius: 7px; font-size: 15px; }
   .explore { flex: 1; display: flex; gap: 8px; min-width: 0; }
@@ -89,7 +82,26 @@
   .theme-toggle:hover { border-color: #fff; }
 
   /* ---------- Layout ---------- */
-  .wrap { max-width: 1160px; margin: 0 auto; padding: 28px 20px 80px; }
+  .layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 264px minmax(0, 1fr); gap: 34px; align-items: start; }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar { position: sticky; top: calc(var(--topbar-h) + 18px); align-self: start; max-height: calc(100vh - var(--topbar-h) - 36px); overflow-y: auto; padding: 22px 4px 40px 0; }
+  .sidebar h3 { font-size: 12px; letter-spacing: .8px; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; font-weight: 700; }
+  .nav-actions { display: flex; gap: 6px; margin-bottom: 16px; }
+  .nav-actions button { flex: 1; font-family: var(--sans); font-size: 11.5px; font-weight: 700; color: var(--muted); background: var(--surface-3); border: 1px solid var(--border); border-radius: 5px; padding: 6px 4px; cursor: pointer; }
+  .nav-actions button:hover { color: var(--brand-strong); border-color: var(--brand); }
+  .nav-group { margin-bottom: 16px; }
+  .nav-group > .nav-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--muted); text-transform: lowercase; padding: 4px 6px; display: block; border-left: 2px solid transparent; transition: color .15s, border-color .15s; }
+  .nav-group.active-group > .nav-tag { color: var(--brand-strong); border-left-color: var(--brand); }
+  .nav-link { display: flex; align-items: center; gap: 8px; padding: 4px 6px 4px 8px; border-radius: 5px; cursor: pointer; color: var(--text); font-size: 12.5px; border-left: 2px solid transparent; }
+  .nav-link:hover { background: var(--surface-3); text-decoration: none; }
+  .nav-link.active { background: var(--brand-tint); border-left-color: var(--brand); }
+  .nav-link .dot { flex: none; width: 40px; text-align: center; font-family: var(--mono); font-size: 9px; font-weight: 800; color: #fff; border-radius: 3px; padding: 2px 0; text-transform: uppercase; }
+  .nav-link .np { font-family: var(--mono); font-size: 12px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dot.get { background: var(--get); } .dot.post { background: var(--post); } .dot.put { background: var(--put); } .dot.delete { background: var(--del); }
+  .dot.schema-dot { background: transparent; color: var(--brand-strong); border: 1px solid var(--border-strong); font-size: 10px; }
+
+  .content { padding: 26px 0 80px; min-width: 0; }
 
   /* ---------- Info block ---------- */
   .info h1 { font-size: 34px; line-height: 1.1; margin: 4px 0 2px; color: var(--text-strong); font-weight: 800; letter-spacing: -.4px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
@@ -101,20 +113,21 @@
   .info-desc p { margin: 0 0 12px; }
   .chips { display: flex; flex-wrap: wrap; gap: 7px; margin: 14px 0 4px; }
   .chip { font-family: var(--mono); font-size: 12px; background: var(--surface-3); border: 1px solid var(--border); color: var(--text); padding: 4px 10px; border-radius: 20px; }
-  .contact-row { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; font-size: 14px; }
-  .contact-row a, .contact-row span { display: inline-flex; align-items: center; gap: 6px; color: var(--text); }
-  .contact-row .k { color: var(--muted); }
+  .contact-row { display: flex; flex-wrap: wrap; gap: 4px 22px; margin-top: 12px; font-size: 14px; }
+  .info-contact-link { color: var(--brand-strong); font-weight: 600; }
+  .info-contact-link:hover { text-decoration: underline; }
 
   .servers { display: flex; align-items: center; gap: 10px; margin: 22px 0 6px; flex-wrap: wrap; }
   .servers label { font-weight: 700; color: var(--text-strong); font-size: 14px; }
   .servers select { font-family: var(--mono); font-size: 13px; padding: 7px 30px 7px 12px; border: 1px solid var(--border-strong); border-radius: 4px; background: var(--surface); color: var(--text); cursor: pointer; appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 16px) 15px, calc(100% - 11px) 15px; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; }
-  .filter { margin: 8px 0 0; }
-  .filter input { width: 100%; max-width: 340px; font-size: 14px; padding: 9px 12px; border: 1px solid var(--border-strong); border-radius: 4px; background: var(--surface); color: var(--text); }
+  .filter { margin: 22px 0 0; position: relative; max-width: 380px; }
+  .filter input { width: 100%; font-size: 14px; padding: 9px 12px 9px 12px; border: 1px solid var(--border-strong); border-radius: 4px; background: var(--surface); color: var(--text); }
+  .filter .kbd { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-size: 11px; color: var(--muted); background: var(--surface-3); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; pointer-events: none; }
 
   hr.rule { border: none; border-top: 1px solid var(--border); margin: 26px 0; }
 
   /* ---------- Tag section ---------- */
-  .tag { margin-bottom: 20px; }
+  .tag { margin-bottom: 20px; scroll-margin-top: calc(var(--topbar-h) + 16px); }
   .tag-head { display: flex; align-items: center; gap: 12px; padding: 8px 4px 12px; cursor: pointer; border-bottom: 1px solid var(--border); user-select: none; }
   .tag-head h2 { font-size: 22px; margin: 0; color: var(--text-strong); font-weight: 700; letter-spacing: -.2px; }
   .tag-head .tag-desc { color: var(--muted); font-size: 14px; flex: 1; }
@@ -126,16 +139,20 @@
   .ops-inner { overflow: hidden; display: flex; flex-direction: column; gap: 10px; padding-top: 12px; }
 
   /* ---------- Operation ---------- */
-  .op { border: 1px solid var(--m-color, var(--border)); border-radius: 6px; background: var(--m-bg, var(--surface)); box-shadow: var(--shadow); overflow: hidden; }
+  .op { border: 1px solid var(--m-color, var(--border)); border-radius: 6px; background: var(--m-bg, var(--surface)); box-shadow: var(--shadow); overflow: hidden; scroll-margin-top: calc(var(--topbar-h) + 16px); }
   .op[data-m="get"]  { --m-color: var(--get);  --m-bg: var(--get-bg);  --m-ink: var(--get-ink); }
   .op[data-m="post"] { --m-color: var(--post); --m-bg: var(--post-bg); --m-ink: var(--post-ink); }
   .op[data-m="put"]  { --m-color: var(--put);  --m-bg: var(--put-bg);  --m-ink: var(--put-ink); }
   .op[data-m="delete"] { --m-color: var(--del); --m-bg: var(--del-bg); --m-ink: var(--del-ink); }
+  .op.flash { animation: flash 1.1s ease; }
+  @keyframes flash { 0%,100% { box-shadow: var(--shadow); } 30% { box-shadow: 0 0 0 3px var(--m-color); } }
 
   .op-head { display: flex; align-items: center; gap: 12px; padding: 8px 12px; cursor: pointer; user-select: none; }
   .method { font-family: var(--mono); font-weight: 800; color: #fff; background: var(--m-color); text-transform: uppercase; font-size: 12px; letter-spacing: .5px; padding: 7px 0; width: 74px; text-align: center; border-radius: 4px; flex: none; }
   .path { font-family: var(--mono); font-weight: 700; color: var(--text-strong); font-size: 14.5px; word-break: break-all; }
   .op-summary { color: var(--muted); font-size: 13.5px; margin-left: auto; text-align: right; }
+  .op-head .copylink { border: none; background: transparent; color: var(--muted); cursor: pointer; font-size: 14px; padding: 4px 6px; border-radius: 4px; margin-left: 8px; opacity: .6; }
+  .op-head .copylink:hover { opacity: 1; background: var(--surface-3); }
   .op-head .chevron { margin-left: 0; }
 
   .op-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .28s ease; background: var(--surface); }
@@ -160,27 +177,43 @@
   .params .pname { font-family: var(--mono); font-weight: 700; color: var(--text-strong); white-space: nowrap; }
   .params .ptype { font-family: var(--mono); color: var(--muted); font-size: 12px; }
 
+  .actions-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .trybtn { font-family: var(--sans); font-weight: 700; font-size: 13px; border: 1px solid var(--m-color); color: var(--m-ink); background: transparent; padding: 7px 16px; border-radius: 4px; cursor: pointer; transition: background .15s; }
   .trybtn:hover { background: var(--m-bg); }
+  .dlbtn { font-family: var(--sans); font-weight: 700; font-size: 13px; border: none; background: var(--brand); color: #fff; padding: 8px 16px; border-radius: 4px; cursor: pointer; display: inline-flex; gap: 7px; align-items: center; }
+  .dlbtn:hover { background: var(--brand-strong); text-decoration: none; }
 
-  .response { margin-top: 6px; }
+  .curl-wrap { position: relative; margin-top: 8px; }
+  .curl-wrap .copy { position: absolute; top: 8px; right: 8px; font-family: var(--sans); font-size: 11.5px; font-weight: 700; color: #cbd5e1; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 4px; padding: 4px 10px; cursor: pointer; }
+  .curl-wrap .copy:hover { background: rgba(255,255,255,.16); }
+  pre.curl { margin: 0; background: #0f1720; color: #d6dee8; border-radius: 6px; padding: 14px 16px; overflow-x: auto; font-family: var(--mono); font-size: 12.5px; line-height: 1.6; }
+  pre.curl .flag { color: #7fe3d7; }
+  pre.curl .url { color: #f7a8c8; }
+
+  .response { margin-top: 12px; }
   .resp-status { display: flex; align-items: center; gap: 10px; margin: 6px 0 10px; font-family: var(--mono); font-size: 13px; }
   .code-ok { background: var(--post); color: #fff; font-weight: 800; padding: 2px 9px; border-radius: 4px; }
   .resp-time { color: var(--muted); }
-  pre.json { margin: 0; background: #16202b; color: #d6dee8; border-radius: 6px; padding: 16px 18px; overflow-x: auto; font-family: var(--mono); font-size: 13px; line-height: 1.6; }
-  :root[data-theme="light"] pre.json { background: #1b2530; }
-  @media (prefers-color-scheme: light) { pre.json { background: #1b2530; } }
+  pre.json { margin: 0; background: #16202b; color: #d6dee8; border-radius: 6px; padding: 16px 18px; overflow-x: auto; font-family: var(--mono); font-size: 13px; line-height: 1.6; min-height: 1em; }
+  :root[data-theme="light"] pre.json, :root[data-theme="light"] pre.curl { background: #1b2530; }
+  @media (prefers-color-scheme: light) { pre.json, pre.curl { background: #1b2530; } }
   pre.json .jk { color: #7fe3d7; }
   pre.json .js { color: #f7a8c8; }
   pre.json .jn { color: #86c7ff; }
   pre.json .jb { color: #ffbb70; }
   pre.json .ju { color: #ff8b82; }
   pre.json .jp { color: #7d8896; }
+  .caret { display: inline-block; width: 7px; background: #7fe3d7; margin-left: 1px; animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .spinner { width: 16px; height: 16px; border: 2px solid var(--m-color); border-top-color: transparent; border-radius: 50%; animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
   .hidden { display: none !important; }
 
   /* ---------- Schemas ---------- */
   .schemas-head h2 { font-size: 22px; color: var(--text-strong); margin: 0 0 4px; }
+  #schemas { scroll-margin-top: calc(var(--topbar-h) + 16px); }
   .schema { border: 1px solid var(--border); border-radius: 6px; background: var(--surface); margin-top: 12px; box-shadow: var(--shadow); overflow: hidden; }
   .schema-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; cursor: pointer; user-select: none; }
   .schema-head .sname { font-family: var(--mono); font-weight: 800; color: var(--text-strong); font-size: 15px; }
@@ -198,14 +231,46 @@
   footer { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
   footer .mono { font-family: var(--mono); }
 
+  /* ---------- Authorize modal ---------- */
+  .overlay { position: fixed; inset: 0; background: rgba(10,15,20,.55); z-index: 50; display: grid; place-items: start center; padding: 80px 20px; opacity: 0; pointer-events: none; transition: opacity .2s; }
+  .overlay.show { opacity: 1; pointer-events: auto; }
+  .modal { background: var(--surface); color: var(--text); border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,.4); width: 100%; max-width: 480px; transform: translateY(-8px); transition: transform .2s; }
+  .overlay.show .modal { transform: translateY(0); }
+  .modal-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+  .modal-head h3 { margin: 0; font-size: 19px; color: var(--text-strong); }
+  .modal-head button { border: none; background: transparent; font-size: 22px; color: var(--muted); cursor: pointer; line-height: 1; }
+  .modal-body { padding: 20px 22px; }
+  .modal-body p { margin: 0 0 14px; }
+  .modal-body label { display: block; font-size: 13px; font-weight: 700; color: var(--text-strong); margin-bottom: 6px; }
+  .modal-body input { width: 100%; font-family: var(--mono); font-size: 13px; padding: 9px 12px; border: 1px solid var(--border-strong); border-radius: 4px; background: var(--surface-2); color: var(--text); }
+  .links-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .link-card { display: flex; align-items: center; gap: 11px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2); color: var(--text); transition: border-color .15s, transform .1s; }
+  .link-card:hover { border-color: var(--brand); text-decoration: none; transform: translateY(-1px); }
+  .link-card .ic { font-size: 20px; flex: none; }
+  .link-card .lk { font-weight: 700; color: var(--text-strong); font-size: 14px; line-height: 1.2; }
+  .link-card .lv { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+  @media (max-width: 520px) { .links-grid { grid-template-columns: 1fr; } }
+  .modal-foot { display: flex; gap: 10px; justify-content: flex-end; padding: 16px 22px; border-top: 1px solid var(--border); }
+  .modal-foot .primary { background: var(--brand); color: #fff; border: none; font-weight: 700; padding: 9px 20px; border-radius: 4px; cursor: pointer; }
+  .modal-foot .ghost { background: transparent; color: var(--muted); border: 1px solid var(--border-strong); padding: 9px 18px; border-radius: 4px; cursor: pointer; font-weight: 700; }
+
+  /* ---------- load animation ---------- */
+  .reveal { opacity: 0; transform: translateY(10px); animation: reveal .5s ease forwards; }
+  @keyframes reveal { to { opacity: 1; transform: none; } }
+
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+  }
   @media (max-width: 680px) {
     .explore { display: none; }
     .info h1 { font-size: 26px; }
     .op-summary { display: none; }
-    .contact-row { gap: 8px 14px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; }
+    * { transition: none !important; animation: none !important; }
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; }
   }
 </style>
 
@@ -221,55 +286,90 @@
   </div>
 </div>
 
-<div class="wrap">
-  <section class="info">
-    <h1>Bhavika Jangid API <span class="ver">v2.0</span> <span class="oas">OAS 3.1</span></h1>
-    <div class="tagline">Scaling backend systems &amp; agentic workflows</div>
-    <div class="spec-url">[ Base URL: bhavika.dev/api ] &nbsp;·&nbsp; /openapi.json</div>
-    <div class="info-desc">
-      <p>Backend engineer with <b>2+ years</b> building distributed systems and API platforms at scale on GCP and Kubernetes. Designs microservices, infrastructure-management APIs, and agent-driven automation — architecting foundational platforms, collaborating across <b>20+ teams</b>, and driving high standards for reliability and code quality.</p>
-      <div class="chips" id="chips"></div>
-      <div class="contact-row" id="contact"></div>
+<div class="layout">
+  <aside class="sidebar" id="sidebar" aria-label="Endpoints">
+    <h3>Endpoints</h3>
+    <div class="nav-actions">
+      <button type="button" id="expandAll">Expand all</button>
+      <button type="button" id="collapseAll">Collapse all</button>
     </div>
+    <nav id="nav"></nav>
+  </aside>
 
-    <div class="servers">
-      <label for="serverSel">Servers</label>
-      <select id="serverSel">
-        <option>https://bhavika.dev &nbsp;- Production</option>
-        <option>https://linkedin.com/in/bhavika-jangid &nbsp;- LinkedIn</option>
-        <option>https://bhavikajangid.substack.com &nbsp;- Writing</option>
-      </select>
+  <div class="content">
+    <section class="info">
+      <h1>Bhavika Jangid <span class="ver">v2.0</span> <span class="oas">OAS 3.1</span></h1>
+      <div class="tagline">Scaling backend systems &amp; agentic workflows</div>
+      <div class="spec-url">[ Base URL: bhavika.dev/api ] &nbsp;·&nbsp; /openapi.json</div>
+      <div class="info-desc">
+        <p>Backend engineer with <b>2+ years</b> building distributed systems and API platforms at scale on GCP and Kubernetes. Designs microservices, infrastructure-management APIs, and agent-driven automation — architecting foundational platforms, collaborating across <b>20+ teams</b>, and driving high standards for reliability and code quality.</p>
+        <div class="chips" id="chips"></div>
+      </div>
+
+      <div class="servers">
+        <label for="serverSel">Servers</label>
+        <select id="serverSel">
+          <option value="">https://bhavika.dev &nbsp;- Portfolio</option>
+          <option value="https://www.linkedin.com/in/bhavika-jangid">https://linkedin.com/in/bhavika-jangid &nbsp;- LinkedIn</option>
+          <option value="mailto:bhavikajangid02@gmail.com">bhavikajangid02@gmail.com &nbsp;- Email</option>
+          <option value="https://x.com/bhavika_jangid_">https://x.com/bhavika_jangid_ &nbsp;- X</option>
+        </select>
+      </div>
+      <div class="filter">
+        <input id="filterInput" type="search" placeholder="Filter by tag or path…" aria-label="Filter operations">
+        <span class="kbd">/</span>
+      </div>
+    </section>
+
+    <hr class="rule">
+
+    <main id="spec"></main>
+
+    <section class="schemas" id="schemas">
+      <div class="schemas-head"><h2>Schemas</h2></div>
+      <div id="schemaList"></div>
+    </section>
+
+    <footer>
+      <span>Built with FastAPI-flavoured love · <span class="mono">200 OK</span></span>
+      <span class="mono">© 2026 Bhavika Jangid</span>
+    </footer>
+  </div>
+</div>
+
+<div class="overlay" id="authOverlay" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <div class="modal">
+    <div class="modal-head"><h3 id="authTitle">Available authorizations</h3><button type="button" id="authClose" aria-label="Close">×</button></div>
+    <div class="modal-body">
+      <p>This API is fully public — no key required. But if you're a recruiter, consider yourself pre-authorized. 🙂</p>
+      <label for="apiKeyInput">apiKey <span style="color:var(--muted);font-weight:400">(name: X-Recruiter-Token, in: header)</span></label>
+      <input id="apiKeyInput" placeholder="paste anything — it all works" spellcheck="false">
     </div>
-    <div class="filter"><input id="filterInput" type="search" placeholder="Filter by tag or path…" aria-label="Filter operations"></div>
-  </section>
+    <div class="modal-foot">
+      <button type="button" class="ghost" id="authCancel">Close</button>
+      <button type="button" class="primary" id="authDo">Authorize</button>
+    </div>
+  </div>
+</div>
 
-  <hr class="rule">
-
-  <main id="spec"></main>
-
-  <section class="schemas" id="schemas">
-    <div class="schemas-head"><h2>Schemas</h2></div>
-    <div id="schemaList"></div>
-  </section>
-
-  <footer>
-    <span>Built with FastAPI-flavoured love · <span class="mono">200 OK</span></span>
-    <span class="mono">© 2026 Bhavika Jangid</span>
-  </footer>
+<div class="overlay" id="linksOverlay" role="dialog" aria-modal="true" aria-labelledby="linksTitle">
+  <div class="modal">
+    <div class="modal-head"><h3 id="linksTitle">Find me online</h3><button type="button" id="linksClose" aria-label="Close">×</button></div>
+    <div class="modal-body">
+      <p>All my links in one place — say hi.</p>
+      <div class="links-grid" id="linksGrid"></div>
+    </div>
+  </div>
 </div>
 
 <script>
 (function () {
   "use strict";
 
-  var skillBadges = ["FastAPI","GCP / Kubernetes","Distributed Systems","API Platform Eng.","Agent Orchestration","Event-Driven Arch.","Observability"];
+  // Where GET /resume points. Relative path works once the PDF is committed to the repo / deployed.
+  var RESUME_URL = "Bhavika_Jangid_Resume.pdf";
 
-  var contacts = [
-    { k: "email", label: "bhavikajangid02@gmail.com", href: "mailto:bhavikajangid02@gmail.com" },
-    { k: "linkedin", label: "linkedin.com/in/bhavika-jangid", href: "https://www.linkedin.com/in/bhavika-jangid" },
-    { k: "substack", label: "bhavikajangid.substack.com", href: "https://bhavikajangid.substack.com/" },
-    { k: "x", label: "@bhavika_jangid_", href: "https://x.com/bhavika_jangid_" }
-  ];
+  var skillBadges = ["FastAPI","GCP / Kubernetes","Distributed Systems","API Platform Eng.","Agent Orchestration","Event-Driven Arch.","Observability"];
 
   var tags = [
     {
@@ -326,6 +426,7 @@
           method: "post",
           path: "/projects/project-raseed",
           summary: "Agentic receipt-to-insight system",
+          stream: true,
           params: [["stack","array","Vertex AI · ADK · BigQuery · GCP"]],
           highlights: [
             { icon: "🧠", title: "Agent orchestration from scratch", text: "Photo of a receipt in, real-time financial insights out. Built the orchestration layer — custom tool framework, streaming responses, structured context management, and multi-model orchestration." },
@@ -372,74 +473,6 @@
           }
         }
       ]
-    },
-    {
-      name: "writing",
-      desc: "Essays on Substack.",
-      open: false,
-      ops: [
-        {
-          method: "get",
-          path: "/writing/substack",
-          summary: "Latest posts",
-          params: [["limit","integer","10"],["sort","enum","recent"]],
-          highlights: [
-            { icon: "✍️", title: "What Happens When You Stop Thinking", text: "<a href='https://bhavikajangid.substack.com/p/what-happens-when-you-stop-thinking' target='_blank' rel='noopener'>Read on Substack</a> · 2026" },
-            { icon: "✍️", title: "What Two Years of Living Alone Taught", text: "<a href='https://bhavikajangid.substack.com/p/what-two-years-of-living-alone-taught' target='_blank' rel='noopener'>Read on Substack</a> · 2026" }
-          ],
-          metrics: [],
-          response: {
-            source: "bhavikajangid.substack.com",
-            posts: [
-              { title: "What Happens When You Stop Thinking", year: 2026 },
-              { title: "What Two Years of Living Alone Taught", year: 2026 }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      name: "meta",
-      desc: "Status endpoints — what I'm up to and where to find me.",
-      open: false,
-      ops: [
-        {
-          method: "get",
-          path: "/now",
-          summary: "Current status",
-          params: [],
-          highlights: [
-            { icon: "🛠️", title: "Building", text: "genzen" },
-            { icon: "📚", title: "Learning", text: "Designing Data-Intensive Applications" },
-            { icon: "🖊️", title: "Writing", text: "on Substack" },
-            { icon: "📖", title: "Reading", text: "The Bell Jar" }
-          ],
-          metrics: [],
-          response: { building: "genzen", learning: "Designing Data-Intensive Applications", writing: "Substack", reading: "The Bell Jar" }
-        },
-        {
-          method: "get",
-          path: "/links",
-          summary: "Socials & contact",
-          params: [],
-          highlights: [
-            { icon: "💼", title: "LinkedIn", text: "<a href='https://www.linkedin.com/in/bhavika-jangid' target='_blank' rel='noopener'>linkedin.com/in/bhavika-jangid</a>" },
-            { icon: "🐦", title: "X", text: "<a href='https://x.com/bhavika_jangid_' target='_blank' rel='noopener'>@bhavika_jangid_</a>" },
-            { icon: "📸", title: "Instagram", text: "<a href='https://www.instagram.com/loggedbybhav' target='_blank' rel='noopener'>@loggedbybhav</a>" },
-            { icon: "▶️", title: "YouTube", text: "<a href='https://www.youtube.com/@bhavikajangid1' target='_blank' rel='noopener'>@bhavikajangid1</a>" },
-            { icon: "📮", title: "Email", text: "<a href='mailto:bhavikajangid02@gmail.com'>bhavikajangid02@gmail.com</a>" }
-          ],
-          metrics: [],
-          response: {
-            email: "bhavikajangid02@gmail.com",
-            linkedin: "linkedin.com/in/bhavika-jangid",
-            x: "x.com/bhavika_jangid_",
-            instagram: "instagram.com/loggedbybhav",
-            youtube: "youtube.com/@bhavikajangid1",
-            substack: "bhavikajangid.substack.com"
-          }
-        }
-      ]
     }
   ];
 
@@ -461,8 +494,14 @@
         ["institution","string",["MNIT Jaipur"]],
         ["degree","string",["B.Tech, Electronics & Communication Engineering"]],
         ["year","integer",["2024"]],
-        ["cgpa","number",["7.73 / 10"]],
-        ["certification","string",["Architecting with Google Kubernetes Engine — Coursera"]]
+        ["cgpa","number",["7.73 / 10"]]
+      ]
+    },
+    {
+      name: "Certifications",
+      props: [
+        ["name","string",["Architecting with Google Kubernetes Engine"]],
+        ["issuer","string",["Coursera · Google Cloud"]]
       ]
     }
   ];
@@ -470,10 +509,10 @@
   // ---------- helpers ----------
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
   function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function slug(p) { return "op-" + p.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase(); }
 
   function highlight(obj) {
-    var json = JSON.stringify(obj, null, 2);
-    json = esc(json);
+    var json = esc(JSON.stringify(obj, null, 2));
     json = json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false)\b|\bnull\b|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g, function (m) {
       var cls = "jn";
       if (/^"/.test(m)) { cls = /:$/.test(m) ? "jk" : "js"; }
@@ -481,37 +520,56 @@
       else if (/null/.test(m)) { cls = "ju"; }
       return '<span class="' + cls + '">' + m + '</span>';
     });
-    json = json.replace(/([{}\[\],])/g, '<span class="jp">$1</span>');
-    return json;
+    return json.replace(/([{}\[\],])/g, '<span class="jp">$1</span>');
+  }
+
+  function curlFor(op) {
+    var base = "https://bhavika.dev/api";
+    var m = op.method.toUpperCase();
+    return '<span class="flag">curl</span> -X ' + m + ' <span class="url">"' + base + op.path + '"</span> \\\n' +
+           '  -H <span class="flag">"accept: application/json"</span>';
   }
 
   // ---------- render info chips + contacts ----------
   var chipWrap = document.getElementById("chips");
   skillBadges.forEach(function (s) { chipWrap.appendChild(el("span", "chip", esc(s))); });
-  var contactWrap = document.getElementById("contact");
-  contacts.forEach(function (c) {
-    var a = el("a", null, '<span class="k">' + c.k + ':</span> ' + esc(c.label));
-    a.href = c.href; if (/^http/.test(c.href)) { a.target = "_blank"; a.rel = "noopener"; }
-    contactWrap.appendChild(a);
+  // ---------- servers dropdown → open link / mail client ----------
+  var serverSel = document.getElementById("serverSel");
+  serverSel.addEventListener("change", function () {
+    var v = this.value;
+    if (!v) return;
+    if (/^mailto:/.test(v)) { window.location.href = v; }
+    else { window.open(v, "_blank", "noopener"); }
+    this.selectedIndex = 0; // snap back to Portfolio default
   });
 
-  // ---------- render spec ----------
+  // ---------- render spec + sidebar ----------
   var specRoot = document.getElementById("spec");
+  var nav = document.getElementById("nav");
+  var opIndex = {}; // id -> {card, open()}
 
-  tags.forEach(function (tag) {
-    var section = el("section", "tag" + (tag.open ? "" : " collapsed"));
+  tags.forEach(function (tag, ti) {
+    var tagId = "tag-" + tag.name;
+    var section = el("section", "tag reveal" + (tag.open ? "" : " collapsed"));
+    section.id = tagId;
+    section.style.animationDelay = (ti * 60) + "ms";
     var head = el("div", "tag-head");
     head.innerHTML = '<h2>' + esc(tag.name) + '</h2><span class="tag-desc">' + esc(tag.desc) + '</span><span class="chevron">▼</span>';
     var ops = el("div", "ops");
     var opsInner = el("div", "ops-inner");
     ops.appendChild(opsInner);
-
     head.addEventListener("click", function () { section.classList.toggle("collapsed"); });
     section.appendChild(head);
     section.appendChild(ops);
 
+    // sidebar group
+    var navGroup = el("div", "nav-group");
+    navGroup.appendChild(el("span", "nav-tag", esc(tag.name)));
+
     tag.ops.forEach(function (op) {
+      var id = slug(op.path);
       var card = el("div", "op collapsed");
+      card.id = id;
       card.setAttribute("data-m", op.method);
       card.setAttribute("data-search", (op.path + " " + tag.name + " " + op.summary).toLowerCase());
 
@@ -519,13 +577,13 @@
       oh.innerHTML = '<span class="method">' + op.method + '</span>' +
         '<span class="path">' + esc(op.path) + '</span>' +
         '<span class="op-summary">' + esc(op.summary) + '</span>' +
+        '<button class="copylink" title="Copy link to this endpoint" aria-label="Copy link">🔗</button>' +
         '<span class="chevron">▼</span>';
 
       var body = el("div", "op-body");
       var bodyInner = el("div", "op-body-inner");
       var content = el("div", "op-content");
 
-      // description
       content.appendChild(el("h4", null, "Description"));
       var ul = el("ul", "desc-list");
       op.highlights.forEach(function (h) {
@@ -535,7 +593,6 @@
       });
       content.appendChild(ul);
 
-      // metrics
       if (op.metrics && op.metrics.length) {
         var mWrap = el("div", "metrics");
         op.metrics.forEach(function (m) {
@@ -544,7 +601,6 @@
         content.appendChild(mWrap);
       }
 
-      // parameters
       if (op.params && op.params.length) {
         content.appendChild(el("h4", null, "Parameters"));
         var table = el("table", "params");
@@ -556,21 +612,65 @@
         content.appendChild(table);
       }
 
-      // try it out -> response
       content.appendChild(el("h4", null, "Responses"));
+      var actions = el("div", "actions-row");
       var tryBtn = el("button", "trybtn", "Try it out");
-      content.appendChild(tryBtn);
+      actions.appendChild(tryBtn);
+      if (op.download) {
+        var dl = el("a", "dlbtn", '⬇ Download');
+        dl.href = op.download; dl.setAttribute("download", "");
+        actions.appendChild(dl);
+      }
+      content.appendChild(actions);
 
       var respWrap = el("div", "response hidden");
-      var t = (Math.random() * 40 + 8).toFixed(0);
-      respWrap.innerHTML = '<div class="resp-status"><span class="code-ok">200</span><span>OK</span><span class="resp-time">· ' + t + 'ms</span></div>';
-      respWrap.appendChild(el("pre", "json", highlight(op.response)));
       content.appendChild(respWrap);
 
       var executed = false;
       tryBtn.addEventListener("click", function () {
-        if (!executed) { respWrap.classList.remove("hidden"); tryBtn.textContent = "Cancel"; executed = true; }
-        else { respWrap.classList.add("hidden"); tryBtn.textContent = "Try it out"; executed = false; }
+        if (executed) { respWrap.classList.add("hidden"); respWrap.innerHTML = ""; tryBtn.textContent = "Try it out"; executed = false; return; }
+        executed = true; tryBtn.textContent = "Cancel";
+        respWrap.classList.remove("hidden");
+        respWrap.innerHTML = '<div class="resp-status"><span class="spinner"></span><span class="resp-time">executing…</span></div>';
+        var t = (Math.random() * 40 + 8).toFixed(0);
+        setTimeout(function () {
+          respWrap.innerHTML = '';
+          var curlWrap = el("div", "curl-wrap");
+          curlWrap.innerHTML = '<button class="copy" type="button">Copy</button><pre class="curl">' + curlFor(op) + '</pre>';
+          respWrap.appendChild(curlWrap);
+          curlWrap.querySelector(".copy").addEventListener("click", function () {
+            var txt = "curl -X " + op.method.toUpperCase() + ' "https://bhavika.dev/api' + op.path + '" -H "accept: application/json"';
+            var self = this;
+            function ok(){ self.textContent = "Copied!"; setTimeout(function(){ self.textContent = "Copy"; }, 1400); }
+            if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).then(ok, ok); } else { ok(); }
+          });
+          var status = el("div", "resp-status");
+          status.innerHTML = '<span class="code-ok">200</span><span>OK</span><span class="resp-time">· ' + t + 'ms · application/json</span>';
+          respWrap.appendChild(status);
+          var pre = el("pre", "json");
+          respWrap.appendChild(pre);
+          var full = highlight(op.response);
+          if (op.stream) {
+            var lines = full.split("\n"); var i = 0;
+            (function step() {
+              pre.innerHTML = lines.slice(0, i + 1).join("\n") + (i < lines.length - 1 ? '<span class="caret">&nbsp;</span>' : '');
+              i++;
+              if (i < lines.length) setTimeout(step, 55);
+            })();
+          } else {
+            pre.innerHTML = full;
+          }
+        }, 620);
+      });
+
+      // copy deep link
+      oh.querySelector(".copylink").addEventListener("click", function (e) {
+        e.stopPropagation();
+        var url = location.origin + location.pathname + "#" + id;
+        var self = this;
+        function ok(){ self.textContent = "✓"; setTimeout(function(){ self.textContent = "🔗"; }, 1200); }
+        if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(url).then(ok, ok); } else { ok(); }
+        history.replaceState(null, "", "#" + id);
       });
 
       oh.addEventListener("click", function () { card.classList.toggle("open"); card.classList.toggle("collapsed"); });
@@ -580,15 +680,44 @@
       card.appendChild(oh);
       card.appendChild(body);
       opsInner.appendChild(card);
+
+      // sidebar link
+      var link = el("a", "nav-link");
+      link.href = "#" + id;
+      var tail = op.path.split("/").filter(Boolean).slice(-1)[0] || op.path;
+      link.innerHTML = '<span class="dot ' + op.method + '">' + op.method + '</span><span class="np">/' + esc(tail) + '</span>';
+      link.addEventListener("click", function (e) { e.preventDefault(); openOp(id); });
+      navGroup.appendChild(link);
+
+      opIndex[id] = { card: card, section: section };
     });
 
     specRoot.appendChild(section);
+    nav.appendChild(navGroup);
   });
+
+  function openOp(id, noPush) {
+    var entry = opIndex[id];
+    if (!entry) return;
+    entry.section.classList.remove("collapsed");
+    entry.card.classList.add("open");
+    entry.card.classList.remove("collapsed");
+    entry.card.scrollIntoView({ behavior: "smooth", block: "start" });
+    entry.card.classList.remove("flash"); void entry.card.offsetWidth; entry.card.classList.add("flash");
+    if (!noPush) history.replaceState(null, "", "#" + id);
+    document.querySelectorAll(".nav-link").forEach(function (l) { l.classList.toggle("active", l.getAttribute("href") === "#" + id); });
+  }
 
   // ---------- render schemas ----------
   var schemaList = document.getElementById("schemaList");
+  var schemaIndex = {}; // id -> box
+  var schemaNavGroup = el("div", "nav-group");
+  schemaNavGroup.appendChild(el("span", "nav-tag", "schemas"));
+
   schemas.forEach(function (sc) {
+    var sid = "schema-" + sc.name.toLowerCase();
     var box = el("div", "schema");
+    box.id = sid;
     var sh = el("div", "schema-head");
     sh.innerHTML = '<span class="chevron">▼</span><span class="sname">' + esc(sc.name) + '</span><span class="sbrace">{ ... }</span>';
     var sb = el("div", "schema-body");
@@ -606,10 +735,29 @@
     box.appendChild(sh);
     box.appendChild(sb);
     schemaList.appendChild(box);
+    schemaIndex[sid] = box;
+
+    // sidebar link
+    var link = el("a", "nav-link");
+    link.href = "#" + sid;
+    link.innerHTML = '<span class="dot schema-dot">{}</span><span class="np">' + esc(sc.name) + '</span>';
+    link.addEventListener("click", function (e) { e.preventDefault(); openSchema(sid); });
+    schemaNavGroup.appendChild(link);
   });
+  nav.appendChild(schemaNavGroup);
+
+  function openSchema(sid) {
+    var box = schemaIndex[sid];
+    if (!box) return;
+    box.classList.add("open");
+    box.scrollIntoView({ behavior: "smooth", block: "start" });
+    history.replaceState(null, "", "#" + sid);
+    document.querySelectorAll(".nav-link").forEach(function (l) { l.classList.toggle("active", l.getAttribute("href") === "#" + sid); });
+  }
 
   // ---------- filter ----------
-  document.getElementById("filterInput").addEventListener("input", function (e) {
+  var filterInput = document.getElementById("filterInput");
+  filterInput.addEventListener("input", function (e) {
     var q = e.target.value.trim().toLowerCase();
     document.querySelectorAll(".tag").forEach(function (tagEl) {
       var anyVisible = false;
@@ -623,25 +771,114 @@
     });
   });
 
+  // ---------- expand / collapse all ----------
+  document.getElementById("expandAll").addEventListener("click", function () {
+    document.querySelectorAll(".tag").forEach(function (t) { t.classList.remove("collapsed"); });
+    document.querySelectorAll(".op").forEach(function (o) { o.classList.add("open"); o.classList.remove("collapsed"); });
+  });
+  document.getElementById("collapseAll").addEventListener("click", function () {
+    document.querySelectorAll(".op").forEach(function (o) { o.classList.remove("open"); o.classList.add("collapsed"); });
+  });
+  // ---------- links / socials popup (Explore) ----------
+  var socials = [
+    { ic: "💼", name: "LinkedIn", val: "in/bhavika-jangid", href: "https://www.linkedin.com/in/bhavika-jangid" },
+    { ic: "📮", name: "Email", val: "bhavikajangid02@gmail.com", href: "mailto:bhavikajangid02@gmail.com" },
+    { ic: "🐦", name: "X", val: "@bhavika_jangid_", href: "https://x.com/bhavika_jangid_" },
+    { ic: "✍️", name: "Substack", val: "bhavikajangid.substack.com", href: "https://bhavikajangid.substack.com/" },
+    { ic: "📸", name: "Instagram", val: "@loggedbybhav", href: "https://www.instagram.com/loggedbybhav" },
+    { ic: "▶️", name: "YouTube", val: "@bhavikajangid1", href: "https://www.youtube.com/@bhavikajangid1" }
+  ];
+  var linksGrid = document.getElementById("linksGrid");
+  socials.forEach(function (s) {
+    var a = el("a", "link-card", '<span class="ic">' + s.ic + '</span><span><span class="lk">' + esc(s.name) + '</span><br><span class="lv">' + esc(s.val) + '</span></span>');
+    a.href = s.href; if (/^http/.test(s.href)) { a.target = "_blank"; a.rel = "noopener"; }
+    linksGrid.appendChild(a);
+  });
+  var linksOverlay = document.getElementById("linksOverlay");
+  function openLinks() { linksOverlay.classList.add("show"); }
+  function closeLinks() { linksOverlay.classList.remove("show"); }
+  document.getElementById("exploreBtn").addEventListener("click", openLinks);
+  document.getElementById("linksClose").addEventListener("click", closeLinks);
+  linksOverlay.addEventListener("click", function (e) { if (e.target === linksOverlay) closeLinks(); });
+
   // ---------- theme toggle ----------
-  var themeBtn = document.getElementById("themeBtn");
-  themeBtn.addEventListener("click", function () {
+  document.getElementById("themeBtn").addEventListener("click", function () {
     var root = document.documentElement;
     var current = root.getAttribute("data-theme");
-    if (!current) {
-      current = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    }
+    if (!current) current = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     root.setAttribute("data-theme", current === "dark" ? "light" : "dark");
   });
 
-  // ---------- explore / authorize easter eggs ----------
-  document.getElementById("exploreBtn").addEventListener("click", function () {
-    document.querySelectorAll(".tag").forEach(function (t) { t.classList.remove("collapsed"); });
+  // ---------- authorize modal ----------
+  var overlay = document.getElementById("authOverlay");
+  function openAuth() { overlay.classList.add("show"); document.getElementById("apiKeyInput").focus(); }
+  function closeAuth() { overlay.classList.remove("show"); }
+  document.getElementById("authBtn").addEventListener("click", openAuth);
+  document.getElementById("authClose").addEventListener("click", closeAuth);
+  document.getElementById("authCancel").addEventListener("click", closeAuth);
+  document.getElementById("authDo").addEventListener("click", function () {
+    var btn = document.getElementById("authBtn");
+    btn.innerHTML = 'Authorized <span aria-hidden="true">🔒</span>';
+    closeAuth();
+    setTimeout(function () { btn.innerHTML = 'Authorize <span aria-hidden="true">🔓</span>'; }, 2200);
   });
-  document.getElementById("authBtn").addEventListener("click", function () {
-    this.innerHTML = 'Authorized <span aria-hidden="true">🔒</span>';
-    var self = this;
-    setTimeout(function () { self.innerHTML = 'Authorize <span aria-hidden="true">🔓</span>'; }, 1600);
+  overlay.addEventListener("click", function (e) { if (e.target === overlay) closeAuth(); });
+
+  // ---------- keyboard shortcuts ----------
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "/" && document.activeElement !== filterInput && !/^(input|textarea|select)$/i.test((document.activeElement || {}).tagName || "")) {
+      e.preventDefault(); filterInput.focus();
+    } else if (e.key === "Escape") {
+      if (overlay.classList.contains("show")) closeAuth();
+      else if (linksOverlay.classList.contains("show")) closeLinks();
+      else if (document.activeElement === filterInput && filterInput.value) { filterInput.value = ""; filterInput.dispatchEvent(new Event("input")); }
+    }
   });
+
+  // ---------- scroll-spy for sidebar ----------
+  var sections = [];
+  Object.keys(opIndex).forEach(function (id) { sections.push({ id: id, elrefFn: function(){ return opIndex[id].card; } }); });
+  Object.keys(schemaIndex).forEach(function (id) { sections.push({ id: id, elrefFn: function(){ return schemaIndex[id]; } }); });
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-link"));
+
+  function setActive(id) {
+    navLinks.forEach(function (l) {
+      var on = l.getAttribute("href") === "#" + id;
+      l.classList.toggle("active", on);
+      if (on) { var g = l.closest(".nav-group"); if (g) g.classList.add("active-group"); }
+    });
+    // recompute group highlight (only the group holding the active link stays lit)
+    document.querySelectorAll(".nav-group").forEach(function (g) {
+      g.classList.toggle("active-group", !!g.querySelector(".nav-link.active"));
+    });
+  }
+
+  var ticking = false;
+  function updateSpy() {
+    ticking = false;
+    var focusLine = 20 + parseInt(getComputedStyle(document.documentElement).getPropertyValue("--topbar-h")) + 100;
+    var currentId = sections.length ? sections[0].id : null;
+    for (var i = 0; i < sections.length; i++) {
+      var el2 = sections[i].elrefFn();
+      if (!el2 || el2.classList.contains("hidden")) continue;
+      if (el2.getBoundingClientRect().top <= focusLine) currentId = sections[i].id;
+      else break;
+    }
+    // if scrolled to the very bottom, activate the last section
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4 && sections.length) {
+      currentId = sections[sections.length - 1].id;
+    }
+    if (currentId) setActive(currentId);
+  }
+  window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(updateSpy); } }, { passive: true });
+  window.addEventListener("resize", function () { if (!ticking) { ticking = true; requestAnimationFrame(updateSpy); } }, { passive: true });
+  updateSpy();
+
+  // ---------- open from hash on load ----------
+  if (location.hash) {
+    var h = location.hash.slice(1);
+    if (opIndex[h]) setTimeout(function () { openOp(h, true); }, 200);
+    else if (schemaIndex[h]) setTimeout(function () { openSchema(h); }, 200);
+  }
 })();
 </script>
