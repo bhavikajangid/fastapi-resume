@@ -73,11 +73,10 @@
   .topbar-inner { max-width: 1280px; width: 100%; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 16px; }
   .brand { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 800; font-size: 18px; letter-spacing: .3px; white-space: nowrap; }
   .brand .bolt { width: 26px; height: 26px; display: grid; place-items: center; background: rgba(255,255,255,.16); border-radius: 7px; font-size: 15px; }
-  .explore { flex: 1; display: flex; gap: 8px; min-width: 0; }
-  .explore input { flex: 1; min-width: 0; border: none; border-radius: 4px; padding: 8px 12px; font-family: var(--mono); font-size: 13px; background: rgba(255,255,255,.95); color: #2a2a33; }
-  .explore button, .authorize { border: 2px solid #fff; background: transparent; color: #fff; font-weight: 700; padding: 6px 16px; border-radius: 4px; cursor: pointer; font-size: 13px; white-space: nowrap; transition: background .15s, color .15s; }
+  .explore { flex: 1; display: flex; gap: 10px; min-width: 0; }
+  .explore input { flex: 1; min-width: 0; height: 36px; border: none; border-radius: 4px; padding: 0 12px; font-family: var(--mono); font-size: 13px; background: rgba(255,255,255,.95); color: #2a2a33; }
+  .explore button, .authorize { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 36px; box-sizing: border-box; border: 2px solid #fff; background: transparent; color: #fff; font-weight: 700; padding: 0 16px; border-radius: 4px; cursor: pointer; font-size: 13px; white-space: nowrap; transition: background .15s, color .15s; }
   .explore button:hover, .authorize:hover { background: #fff; color: var(--brand-strong); }
-  .authorize { display: inline-flex; align-items: center; gap: 6px; }
   .theme-toggle { border: 2px solid rgba(255,255,255,.6); background: transparent; color: #fff; width: 36px; height: 36px; border-radius: 4px; cursor: pointer; font-size: 15px; display: grid; place-items: center; }
   .theme-toggle:hover { border-color: #fff; }
 
@@ -241,7 +240,8 @@
   .modal-body { padding: 20px 22px; }
   .modal-body p { margin: 0 0 14px; }
   .modal-body label { display: block; font-size: 13px; font-weight: 700; color: var(--text-strong); margin-bottom: 6px; }
-  .modal-body input { width: 100%; font-family: var(--mono); font-size: 13px; padding: 9px 12px; border: 1px solid var(--border-strong); border-radius: 4px; background: var(--surface-2); color: var(--text); }
+  .modal-body input, .modal-body textarea { width: 100%; font-family: var(--mono); font-size: 13px; padding: 9px 12px; border: 1px solid var(--border-strong); border-radius: 4px; background: var(--surface-2); color: var(--text); }
+  .modal-body textarea { resize: vertical; min-height: 96px; line-height: 1.5; }
   .links-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .link-card { display: flex; align-items: center; gap: 11px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2); color: var(--text); transition: border-color .15s, transform .1s; }
   .link-card:hover { border-color: var(--brand); text-decoration: none; transform: translateY(-1px); }
@@ -280,7 +280,7 @@
       <input value="https://bhavikajangid.github.io/fastapi-resume/" spellcheck="false" aria-label="OpenAPI spec URL">
       <button type="button" id="exploreBtn">Explore</button>
     </div>
-    <button class="authorize" type="button" id="authBtn">Stay in touch <span aria-hidden="true">✉️</span></button>
+    <button class="authorize" type="button" id="authBtn">Say hi <span aria-hidden="true">✉️</span></button>
     <button class="theme-toggle" type="button" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">◐</button>
   </div>
 </div>
@@ -329,17 +329,17 @@
 
 <div class="overlay" id="authOverlay" role="dialog" aria-modal="true" aria-labelledby="authTitle">
   <div class="modal">
-    <div class="modal-head"><h3 id="authTitle">Get in touch</h3><button type="button" id="authClose" aria-label="Close">×</button></div>
+    <div class="modal-head"><h3 id="authTitle">Say hi</h3><button type="button" id="authClose" aria-label="Close">×</button></div>
     <div class="modal-body">
-      <p>No API key needed — just say hi. Drop a note and it opens in your mail client, addressed to me.</p>
+      <p>No API key needed — just say hi. Opens a Gmail compose window addressed to me.</p>
       <label for="authSubject">Subject</label>
       <input id="authSubject" placeholder="e.g. Backend role at Acme" spellcheck="false">
       <label for="authMessage" style="margin-top:12px">Message</label>
-      <input id="authMessage" placeholder="Hi Bhavika, …" spellcheck="false">
+      <textarea id="authMessage" rows="5" placeholder="Hi Bhavika, …" spellcheck="false"></textarea>
     </div>
     <div class="modal-foot">
       <button type="button" class="ghost" id="authCancel">Close</button>
-      <button type="button" class="primary" id="authDo">Send email ✉️</button>
+      <button type="button" class="primary" id="authDo">Compose in Gmail ✉️</button>
     </div>
   </div>
 </div>
@@ -792,7 +792,7 @@
     root.setAttribute("data-theme", current === "dark" ? "light" : "dark");
   });
 
-  // ---------- authorize modal → send email ----------
+  // ---------- "Say hi" modal → open Gmail compose in browser ----------
   var overlay = document.getElementById("authOverlay");
   function openAuth() { overlay.classList.add("show"); document.getElementById("authSubject").focus(); }
   function closeAuth() { overlay.classList.remove("show"); }
@@ -802,8 +802,9 @@
   document.getElementById("authDo").addEventListener("click", function () {
     var subject = document.getElementById("authSubject").value.trim() || "Hello from your portfolio";
     var body = document.getElementById("authMessage").value.trim();
-    var href = "mailto:bhavikajangid02@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-    window.location.href = href;
+    var url = "https://mail.google.com/mail/?view=cm&fs=1&to=bhavikajangid02@gmail.com" +
+              "&su=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    window.open(url, "_blank", "noopener");
     closeAuth();
   });
   overlay.addEventListener("click", function (e) { if (e.target === overlay) closeAuth(); });
