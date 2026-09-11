@@ -306,15 +306,6 @@
         <div class="chips" id="chips"></div>
       </div>
 
-      <div class="servers">
-        <label for="serverSel">Servers</label>
-        <select id="serverSel">
-          <option value="">https://bhavikajangid.github.io/fastapi-resume/ &nbsp;- Portfolio</option>
-          <option value="https://www.linkedin.com/in/bhavika-jangid">https://linkedin.com/in/bhavika-jangid &nbsp;- LinkedIn</option>
-          <option value="mailto:bhavikajangid02@gmail.com">bhavikajangid02@gmail.com &nbsp;- Email</option>
-          <option value="https://x.com/bhavika_jangid_">https://x.com/bhavika_jangid_ &nbsp;- X</option>
-        </select>
-      </div>
       <div class="filter">
         <input id="filterInput" type="search" placeholder="Filter by tag or path…" aria-label="Filter operations">
         <span class="kbd">/</span>
@@ -533,15 +524,6 @@
   // ---------- render info chips + contacts ----------
   var chipWrap = document.getElementById("chips");
   skillBadges.forEach(function (s) { chipWrap.appendChild(el("span", "chip", esc(s))); });
-  // ---------- servers dropdown → open link / mail client ----------
-  var serverSel = document.getElementById("serverSel");
-  serverSel.addEventListener("change", function () {
-    var v = this.value;
-    if (!v) return;
-    if (/^mailto:/.test(v)) { window.location.href = v; }
-    else { window.open(v, "_blank", "noopener"); }
-    this.selectedIndex = 0; // snap back to Portfolio default
-  });
 
   // ---------- render spec + sidebar ----------
   var specRoot = document.getElementById("spec");
