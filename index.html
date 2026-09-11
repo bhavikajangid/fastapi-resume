@@ -1,0 +1,647 @@
+<title>Bhavika Jangid · API Docs</title>
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --surface-2: #f7f9fa;
+    --surface-3: #eef1f4;
+    --text: #3b4151;
+    --text-strong: #1b1b25;
+    --muted: #6b7684;
+    --border: #e1e6ec;
+    --border-strong: #cfd6df;
+    --brand: #009688;
+    --brand-strong: #00786c;
+    --brand-tint: #e0f2f1;
+    --shadow: 0 1px 2px rgba(20,30,40,.06), 0 6px 20px rgba(20,30,40,.05);
+
+    --get: #61affe;   --get-bg: rgba(97,175,254,.10);   --get-ink: #3b6fb0;
+    --post: #49cc90;  --post-bg: rgba(73,204,144,.12);  --post-ink: #2f8a63;
+    --put: #fca130;   --put-bg: rgba(252,161,48,.12);   --put-ink: #b06f0f;
+    --del: #f93e3e;   --del-bg: rgba(249,62,62,.10);    --del-ink: #c22;
+
+    --j-key: #00786c;
+    --j-str: #b5416b;
+    --j-num: #0b7285;
+    --j-bool: #a15c00;
+    --j-null: #a33;
+    --j-punct: #8a94a2;
+
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117; --surface: #161b22; --surface-2: #1a2029; --surface-3: #20272f;
+      --text: #c9d1d9; --text-strong: #f0f6fc; --muted: #8b949e;
+      --border: #262d36; --border-strong: #333b45;
+      --brand: #2bbbad; --brand-strong: #4fd1c5; --brand-tint: rgba(43,187,173,.12);
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+      --get-bg: rgba(97,175,254,.12); --get-ink: #7cc0ff;
+      --post-bg: rgba(73,204,144,.14); --post-ink: #56d99b;
+      --put-bg: rgba(252,161,48,.14); --put-ink: #ffbb5c;
+      --del-bg: rgba(249,62,62,.14); --del-ink: #ff7b72;
+      --j-key: #4fd1c5; --j-str: #f0a6c4; --j-num: #79c0ff; --j-bool: #ffab70; --j-null: #ff7b72; --j-punct: #7d8896;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f5f6f8; --surface: #ffffff; --surface-2: #f7f9fa; --surface-3: #eef1f4;
+    --text: #3b4151; --text-strong: #1b1b25; --muted: #6b7684;
+    --border: #e1e6ec; --border-strong: #cfd6df;
+    --brand: #009688; --brand-strong: #00786c; --brand-tint: #e0f2f1;
+    --shadow: 0 1px 2px rgba(20,30,40,.06), 0 6px 20px rgba(20,30,40,.05);
+    --get-bg: rgba(97,175,254,.10); --get-ink: #3b6fb0;
+    --post-bg: rgba(73,204,144,.12); --post-ink: #2f8a63;
+    --put-bg: rgba(252,161,48,.12); --put-ink: #b06f0f;
+    --del-bg: rgba(249,62,62,.10); --del-ink: #c22;
+    --j-key: #00786c; --j-str: #b5416b; --j-num: #0b7285; --j-bool: #a15c00; --j-null: #a33; --j-punct: #8a94a2;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d1117; --surface: #161b22; --surface-2: #1a2029; --surface-3: #20272f;
+    --text: #c9d1d9; --text-strong: #f0f6fc; --muted: #8b949e;
+    --border: #262d36; --border-strong: #333b45;
+    --brand: #2bbbad; --brand-strong: #4fd1c5; --brand-tint: rgba(43,187,173,.12);
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+    --get-bg: rgba(97,175,254,.12); --get-ink: #7cc0ff;
+    --post-bg: rgba(73,204,144,.14); --post-ink: #56d99b;
+    --put-bg: rgba(252,161,48,.14); --put-ink: #ffbb5c;
+    --del-bg: rgba(249,62,62,.14); --del-ink: #ff7b72;
+    --j-key: #4fd1c5; --j-str: #f0a6c4; --j-num: #79c0ff; --j-bool: #ffab70; --j-null: #ff7b72; --j-punct: #7d8896;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  a { color: var(--brand-strong); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 3px; }
+
+  /* ---------- Top bar ---------- */
+  .topbar { background: linear-gradient(90deg, var(--brand-strong), var(--brand)); padding: 12px 0; box-shadow: 0 2px 10px rgba(0,120,108,.25); position: sticky; top: 0; z-index: 20; }
+  .topbar-inner { max-width: 1160px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 800; font-size: 18px; letter-spacing: .3px; white-space: nowrap; }
+  .brand .bolt { width: 26px; height: 26px; display: grid; place-items: center; background: rgba(255,255,255,.16); border-radius: 7px; font-size: 15px; }
+  .explore { flex: 1; display: flex; gap: 8px; min-width: 0; }
+  .explore input { flex: 1; min-width: 0; border: none; border-radius: 4px; padding: 8px 12px; font-family: var(--mono); font-size: 13px; background: rgba(255,255,255,.95); color: #2a2a33; }
+  .explore button, .authorize { border: 2px solid #fff; background: transparent; color: #fff; font-weight: 700; padding: 6px 16px; border-radius: 4px; cursor: pointer; font-size: 13px; white-space: nowrap; transition: background .15s, color .15s; }
+  .explore button:hover, .authorize:hover { background: #fff; color: var(--brand-strong); }
+  .authorize { display: inline-flex; align-items: center; gap: 6px; }
+  .theme-toggle { border: 2px solid rgba(255,255,255,.6); background: transparent; color: #fff; width: 36px; height: 36px; border-radius: 4px; cursor: pointer; font-size: 15px; display: grid; place-items: center; }
+  .theme-toggle:hover { border-color: #fff; }
+
+  /* ---------- Layout ---------- */
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 28px 20px 80px; }
+
+  /* ---------- Info block ---------- */
+  .info h1 { font-size: 34px; line-height: 1.1; margin: 4px 0 2px; color: var(--text-strong); font-weight: 800; letter-spacing: -.4px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .ver { font-family: var(--mono); font-size: 12px; font-weight: 700; background: var(--brand-tint); color: var(--brand-strong); padding: 3px 9px; border-radius: 20px; letter-spacing: 0; }
+  .oas { font-family: var(--mono); font-size: 12px; color: var(--muted); font-weight: 600; }
+  .tagline { font-size: 16px; color: var(--muted); margin: 2px 0 14px; }
+  .spec-url { font-family: var(--mono); font-size: 13px; color: var(--brand-strong); margin-bottom: 16px; }
+  .info-desc { max-width: 68ch; }
+  .info-desc p { margin: 0 0 12px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; margin: 14px 0 4px; }
+  .chip { font-family: var(--mono); font-size: 12px; background: var(--surface-3); border: 1px solid var(--border); color: var(--text); padding: 4px 10px; border-radius: 20px; }
+  .contact-row { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; font-size: 14px; }
+  .contact-row a, .contact-row span { display: inline-flex; align-items: center; gap: 6px; color: var(--text); }
+  .contact-row .k { color: var(--muted); }
+
+  .servers { display: flex; align-items: center; gap: 10px; margin: 22px 0 6px; flex-wrap: wrap; }
+  .servers label { font-weight: 700; color: var(--text-strong); font-size: 14px; }
+  .servers select { font-family: var(--mono); font-size: 13px; padding: 7px 30px 7px 12px; border: 1px solid var(--border-strong); border-radius: 4px; background: var(--surface); color: var(--text); cursor: pointer; appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 16px) 15px, calc(100% - 11px) 15px; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; }
+  .filter { margin: 8px 0 0; }
+  .filter input { width: 100%; max-width: 340px; font-size: 14px; padding: 9px 12px; border: 1px solid var(--border-strong); border-radius: 4px; background: var(--surface); color: var(--text); }
+
+  hr.rule { border: none; border-top: 1px solid var(--border); margin: 26px 0; }
+
+  /* ---------- Tag section ---------- */
+  .tag { margin-bottom: 20px; }
+  .tag-head { display: flex; align-items: center; gap: 12px; padding: 8px 4px 12px; cursor: pointer; border-bottom: 1px solid var(--border); user-select: none; }
+  .tag-head h2 { font-size: 22px; margin: 0; color: var(--text-strong); font-weight: 700; letter-spacing: -.2px; }
+  .tag-head .tag-desc { color: var(--muted); font-size: 14px; flex: 1; }
+  .chevron { margin-left: auto; color: var(--muted); transition: transform .2s ease; font-size: 13px; }
+  .tag.collapsed .chevron, .op.collapsed .chevron { transform: rotate(-90deg); }
+
+  .ops { display: grid; grid-template-rows: 1fr; transition: grid-template-rows .28s ease; }
+  .tag.collapsed .ops { grid-template-rows: 0fr; }
+  .ops-inner { overflow: hidden; display: flex; flex-direction: column; gap: 10px; padding-top: 12px; }
+
+  /* ---------- Operation ---------- */
+  .op { border: 1px solid var(--m-color, var(--border)); border-radius: 6px; background: var(--m-bg, var(--surface)); box-shadow: var(--shadow); overflow: hidden; }
+  .op[data-m="get"]  { --m-color: var(--get);  --m-bg: var(--get-bg);  --m-ink: var(--get-ink); }
+  .op[data-m="post"] { --m-color: var(--post); --m-bg: var(--post-bg); --m-ink: var(--post-ink); }
+  .op[data-m="put"]  { --m-color: var(--put);  --m-bg: var(--put-bg);  --m-ink: var(--put-ink); }
+  .op[data-m="delete"] { --m-color: var(--del); --m-bg: var(--del-bg); --m-ink: var(--del-ink); }
+
+  .op-head { display: flex; align-items: center; gap: 12px; padding: 8px 12px; cursor: pointer; user-select: none; }
+  .method { font-family: var(--mono); font-weight: 800; color: #fff; background: var(--m-color); text-transform: uppercase; font-size: 12px; letter-spacing: .5px; padding: 7px 0; width: 74px; text-align: center; border-radius: 4px; flex: none; }
+  .path { font-family: var(--mono); font-weight: 700; color: var(--text-strong); font-size: 14.5px; word-break: break-all; }
+  .op-summary { color: var(--muted); font-size: 13.5px; margin-left: auto; text-align: right; }
+  .op-head .chevron { margin-left: 0; }
+
+  .op-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .28s ease; background: var(--surface); }
+  .op.open .op-body { grid-template-rows: 1fr; }
+  .op-body-inner { overflow: hidden; }
+  .op-content { padding: 4px 18px 20px; border-top: 1px solid var(--m-color); }
+  .op.open .op-content { padding-top: 18px; }
+
+  .op-content h4 { text-transform: uppercase; letter-spacing: .6px; font-size: 12px; color: var(--muted); margin: 18px 0 8px; font-weight: 700; }
+  .op-content h4:first-child { margin-top: 0; }
+  .desc-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .desc-list li { display: flex; gap: 10px; align-items: flex-start; }
+  .desc-list .icon { flex: none; font-size: 15px; line-height: 1.5; }
+  .desc-list b { color: var(--text-strong); }
+  .metrics { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 2px; }
+  .metric { background: var(--surface-3); border: 1px solid var(--border); border-radius: 6px; padding: 6px 11px; display: flex; flex-direction: column; line-height: 1.15; }
+  .metric .num { font-family: var(--mono); font-weight: 800; color: var(--brand-strong); font-size: 16px; }
+  .metric .lbl { font-size: 11px; color: var(--muted); }
+
+  .params { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .params td { padding: 6px 10px 6px 0; vertical-align: top; border-bottom: 1px solid var(--border); }
+  .params .pname { font-family: var(--mono); font-weight: 700; color: var(--text-strong); white-space: nowrap; }
+  .params .ptype { font-family: var(--mono); color: var(--muted); font-size: 12px; }
+
+  .trybtn { font-family: var(--sans); font-weight: 700; font-size: 13px; border: 1px solid var(--m-color); color: var(--m-ink); background: transparent; padding: 7px 16px; border-radius: 4px; cursor: pointer; transition: background .15s; }
+  .trybtn:hover { background: var(--m-bg); }
+
+  .response { margin-top: 6px; }
+  .resp-status { display: flex; align-items: center; gap: 10px; margin: 6px 0 10px; font-family: var(--mono); font-size: 13px; }
+  .code-ok { background: var(--post); color: #fff; font-weight: 800; padding: 2px 9px; border-radius: 4px; }
+  .resp-time { color: var(--muted); }
+  pre.json { margin: 0; background: #16202b; color: #d6dee8; border-radius: 6px; padding: 16px 18px; overflow-x: auto; font-family: var(--mono); font-size: 13px; line-height: 1.6; }
+  :root[data-theme="light"] pre.json { background: #1b2530; }
+  @media (prefers-color-scheme: light) { pre.json { background: #1b2530; } }
+  pre.json .jk { color: #7fe3d7; }
+  pre.json .js { color: #f7a8c8; }
+  pre.json .jn { color: #86c7ff; }
+  pre.json .jb { color: #ffbb70; }
+  pre.json .ju { color: #ff8b82; }
+  pre.json .jp { color: #7d8896; }
+
+  .hidden { display: none !important; }
+
+  /* ---------- Schemas ---------- */
+  .schemas-head h2 { font-size: 22px; color: var(--text-strong); margin: 0 0 4px; }
+  .schema { border: 1px solid var(--border); border-radius: 6px; background: var(--surface); margin-top: 12px; box-shadow: var(--shadow); overflow: hidden; }
+  .schema-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; cursor: pointer; user-select: none; }
+  .schema-head .sname { font-family: var(--mono); font-weight: 800; color: var(--text-strong); font-size: 15px; }
+  .schema-head .sbrace { color: var(--muted); font-family: var(--mono); }
+  .schema-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .28s ease; }
+  .schema.open .schema-body { grid-template-rows: 1fr; }
+  .schema-body-inner { overflow: hidden; }
+  .schema-props { padding: 0 18px 18px; }
+  .prop { display: flex; gap: 10px; padding: 9px 0; border-top: 1px solid var(--border); flex-wrap: wrap; align-items: baseline; }
+  .prop .pk { font-family: var(--mono); font-weight: 700; color: var(--text-strong); min-width: 130px; }
+  .prop .pt { font-family: var(--mono); font-size: 12px; color: var(--brand-strong); }
+  .prop .pv { color: var(--text); font-size: 13.5px; flex: 1 1 240px; }
+  .prop .pv .tok { font-family: var(--mono); font-size: 12px; background: var(--surface-3); border: 1px solid var(--border); padding: 1px 7px; border-radius: 12px; margin: 2px 4px 2px 0; display: inline-block; color: var(--text); }
+
+  footer { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  footer .mono { font-family: var(--mono); }
+
+  @media (max-width: 680px) {
+    .explore { display: none; }
+    .info h1 { font-size: 26px; }
+    .op-summary { display: none; }
+    .contact-row { gap: 8px 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="bolt">⚡</span> Bhavika Jangid</div>
+    <div class="explore">
+      <input value="https://bhavika.dev/openapi.json" spellcheck="false" aria-label="OpenAPI spec URL">
+      <button type="button" id="exploreBtn">Explore</button>
+    </div>
+    <button class="authorize" type="button" id="authBtn">Authorize <span aria-hidden="true">🔓</span></button>
+    <button class="theme-toggle" type="button" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">◐</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="info">
+    <h1>Bhavika Jangid API <span class="ver">v2.0</span> <span class="oas">OAS 3.1</span></h1>
+    <div class="tagline">Scaling backend systems &amp; agentic workflows</div>
+    <div class="spec-url">[ Base URL: bhavika.dev/api ] &nbsp;·&nbsp; /openapi.json</div>
+    <div class="info-desc">
+      <p>Backend engineer with <b>2+ years</b> building distributed systems and API platforms at scale on GCP and Kubernetes. Designs microservices, infrastructure-management APIs, and agent-driven automation — architecting foundational platforms, collaborating across <b>20+ teams</b>, and driving high standards for reliability and code quality.</p>
+      <div class="chips" id="chips"></div>
+      <div class="contact-row" id="contact"></div>
+    </div>
+
+    <div class="servers">
+      <label for="serverSel">Servers</label>
+      <select id="serverSel">
+        <option>https://bhavika.dev &nbsp;- Production</option>
+        <option>https://linkedin.com/in/bhavika-jangid &nbsp;- LinkedIn</option>
+        <option>https://bhavikajangid.substack.com &nbsp;- Writing</option>
+      </select>
+    </div>
+    <div class="filter"><input id="filterInput" type="search" placeholder="Filter by tag or path…" aria-label="Filter operations"></div>
+  </section>
+
+  <hr class="rule">
+
+  <main id="spec"></main>
+
+  <section class="schemas" id="schemas">
+    <div class="schemas-head"><h2>Schemas</h2></div>
+    <div id="schemaList"></div>
+  </section>
+
+  <footer>
+    <span>Built with FastAPI-flavoured love · <span class="mono">200 OK</span></span>
+    <span class="mono">© 2026 Bhavika Jangid</span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var skillBadges = ["FastAPI","GCP / Kubernetes","Distributed Systems","API Platform Eng.","Agent Orchestration","Event-Driven Arch.","Observability"];
+
+  var contacts = [
+    { k: "email", label: "bhavikajangid02@gmail.com", href: "mailto:bhavikajangid02@gmail.com" },
+    { k: "linkedin", label: "linkedin.com/in/bhavika-jangid", href: "https://www.linkedin.com/in/bhavika-jangid" },
+    { k: "substack", label: "bhavikajangid.substack.com", href: "https://bhavikajangid.substack.com/" },
+    { k: "x", label: "@bhavika_jangid_", href: "https://x.com/bhavika_jangid_" }
+  ];
+
+  var tags = [
+    {
+      name: "experience",
+      desc: "Production systems shipped at Micron Technology.",
+      open: true,
+      ops: [
+        {
+          method: "get",
+          path: "/experience/micron/software-engineer",
+          summary: "Jul 2024 – Present · Hyderabad, IN",
+          params: [["role","string","Software Engineer"],["company","string","Micron Technology"],["status","enum","current"]],
+          highlights: [
+            { icon: "🏗️", title: "API Platform & Infrastructure Management", text: "Built a production-grade platform letting <b>20+ teams</b> build, deploy, and manage FastAPI services on Kubernetes. Architected REST API abstractions, a versioning strategy, and lifecycle management; shipped a Python SDK with structured dependency injection, an API registry, self-service deployment, and Vault-based secrets." },
+            { icon: "🔧", title: "Metadata Governance Platform", text: "Discovery engine (OpenMetadata on GKE) for <b>50K+ datasets</b> with automated ingestion from Snowflake and BigQuery, DDL tracking, pipeline-lineage APIs, and steward enrichment workflows. Cut manual discovery <b>75%</b>." },
+            { icon: "🤖", title: "Autonomous Agent System", text: "Deployed a production agent system on GKE (Vertex AI Agent Engine + ADK) for AI-powered incident response, with a custom tool-invocation framework and Atlassian MCP for Jira automation. <b>90%</b> reduction in incident response time." },
+            { icon: "📡", title: "Event-Driven Architecture", text: "Serverless ingestion pipelines (Cloud Run + GCP Workflows) with exactly-once semantics. <b>40%</b> throughput improvement, <b>20%</b> lower operational cost." },
+            { icon: "👁️", title: "End-to-End Observability", text: "Distributed tracing across <b>20+ microservices</b> (OpenTelemetry + Cloud Trace) at <b>99.9%</b> coverage. Set the observability and incident-response standard. <b>60%</b> lower MTTR." }
+          ],
+          metrics: [["20+","teams enabled"],["50K+","datasets governed"],["90%","faster response"],["60%","lower MTTR"]],
+          response: {
+            role: "Software Engineer", company: "Micron Technology", location: "Hyderabad, IN",
+            period: "2024-07 → present",
+            impact: { teams_enabled: 20, datasets_governed: "50K+", incident_response_reduction: "90%", mttr_reduction: "60%", throughput_gain: "40%", trace_coverage: "99.9%" },
+            stack: ["FastAPI","Kubernetes","GCP","Vertex AI","OpenTelemetry","Vault"]
+          }
+        },
+        {
+          method: "get",
+          path: "/experience/micron/data-engineer-intern",
+          summary: "Jan 2024 – Jul 2024 · Hyderabad, IN",
+          params: [["role","string","Data Engineering Intern"],["company","string","Micron Technology"],["status","enum","completed"]],
+          highlights: [
+            { icon: "⚡", title: "High-Concurrency Backend Services", text: "FastAPI microservices on GKE handling <b>5K+ concurrent requests</b> (<b>99.9%</b> uptime, <b>&lt;100ms</b> p99 SLA). Cut response times <b>30%</b> via Redis caching, Celery async queues, and structured dependency injection." },
+            { icon: "🧱", title: "Stateless Service Architecture", text: "Distributed-systems patterns for horizontal scalability on Kubernetes — graceful shutdown, health-check APIs, and load balancing, backed by platform testing and reliability frameworks." },
+            { icon: "📊", title: "Internal Dashboard Platform", text: "AngularJS platform for product-instance registration, bug tracking, and dashboard management, used across multiple engineering teams." }
+          ],
+          metrics: [["5K+","concurrent req"],["99.9%","uptime"],["<100ms","p99 latency"],["30%","faster"]],
+          response: {
+            role: "Data Engineering Intern", company: "Micron Technology", location: "Hyderabad, IN",
+            period: "2024-01 → 2024-07",
+            impact: { concurrent_requests: "5K+", uptime: "99.9%", p99_latency_ms: 100, response_time_reduction: "30%" },
+            stack: ["FastAPI","GKE","Redis","Celery","AngularJS"]
+          }
+        }
+      ]
+    },
+    {
+      name: "projects",
+      desc: "Things I've designed and shipped.",
+      open: true,
+      ops: [
+        {
+          method: "post",
+          path: "/projects/project-raseed",
+          summary: "Agentic receipt-to-insight system",
+          params: [["stack","array","Vertex AI · ADK · BigQuery · GCP"]],
+          highlights: [
+            { icon: "🧠", title: "Agent orchestration from scratch", text: "Photo of a receipt in, real-time financial insights out. Built the orchestration layer — custom tool framework, streaming responses, structured context management, and multi-model orchestration." },
+            { icon: "📈", title: "Scalable pipeline APIs", text: "Event-driven triggers, BigQuery analytics APIs, dynamic state management, and Google Wallet pass integration for near real-time receipt-to-insight transformation." }
+          ],
+          metrics: [],
+          response: {
+            name: "Project Raseed", type: "agentic-system",
+            capabilities: ["receipt-ocr","financial-insights","google-wallet-passes"],
+            stack: ["Vertex AI","ADK","BigQuery","GCP"], status: "shipped"
+          }
+        },
+        {
+          method: "post",
+          path: "/projects/focusroom",
+          summary: "Ambient co-working platform",
+          params: [["stack","array","FastAPI · PostgreSQL · Redis · Next.js · LiveKit"]],
+          highlights: [
+            { icon: "🎧", title: "Full-stack ambient co-working", text: "FastAPI backend with async PostgreSQL (asyncpg) and Redis for session/presence state, and a Next.js/Zustand frontend for real-time UI sync." },
+            { icon: "🎙️", title: "Real-time audio/video rooms", text: "Integrated LiveKit with JWT-based token generation and guest auth flows supporting both authenticated and anonymous sessions." },
+            { icon: "🗄️", title: "Zero-downtime schema evolution", text: "Designed and managed migrations with Alembic, enabling iterative feature development without downtime." }
+          ],
+          metrics: [],
+          response: {
+            name: "FocusRoom", type: "full-stack-platform",
+            realtime: { transport: "LiveKit", auth: ["jwt","guest"] },
+            stack: ["FastAPI","PostgreSQL(asyncpg)","Redis","Next.js","Zustand","LiveKit","Alembic"], status: "shipped"
+          }
+        },
+        {
+          method: "post",
+          path: "/projects/spotify-clone",
+          summary: "Full-stack music streaming app",
+          params: [["stack","array","React · Express · MongoDB · JWT"]],
+          highlights: [
+            { icon: "🎵", title: "Streaming from the ground up", text: "Real-time search, persistent playlists, and seamless playback." },
+            { icon: "🔐", title: "Session that survives refresh", text: "JWT auth and session handling so users never lose their place — even on refresh mid-song." }
+          ],
+          metrics: [],
+          response: {
+            name: "Spotify Clone", type: "full-stack-app",
+            features: ["realtime-search","persistent-playlists","jwt-auth"],
+            stack: ["React","Express","MongoDB","JWT"], status: "shipped"
+          }
+        }
+      ]
+    },
+    {
+      name: "writing",
+      desc: "Essays on Substack.",
+      open: false,
+      ops: [
+        {
+          method: "get",
+          path: "/writing/substack",
+          summary: "Latest posts",
+          params: [["limit","integer","10"],["sort","enum","recent"]],
+          highlights: [
+            { icon: "✍️", title: "What Happens When You Stop Thinking", text: "<a href='https://bhavikajangid.substack.com/p/what-happens-when-you-stop-thinking' target='_blank' rel='noopener'>Read on Substack</a> · 2026" },
+            { icon: "✍️", title: "What Two Years of Living Alone Taught", text: "<a href='https://bhavikajangid.substack.com/p/what-two-years-of-living-alone-taught' target='_blank' rel='noopener'>Read on Substack</a> · 2026" }
+          ],
+          metrics: [],
+          response: {
+            source: "bhavikajangid.substack.com",
+            posts: [
+              { title: "What Happens When You Stop Thinking", year: 2026 },
+              { title: "What Two Years of Living Alone Taught", year: 2026 }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      name: "meta",
+      desc: "Status endpoints — what I'm up to and where to find me.",
+      open: false,
+      ops: [
+        {
+          method: "get",
+          path: "/now",
+          summary: "Current status",
+          params: [],
+          highlights: [
+            { icon: "🛠️", title: "Building", text: "genzen" },
+            { icon: "📚", title: "Learning", text: "Designing Data-Intensive Applications" },
+            { icon: "🖊️", title: "Writing", text: "on Substack" },
+            { icon: "📖", title: "Reading", text: "The Bell Jar" }
+          ],
+          metrics: [],
+          response: { building: "genzen", learning: "Designing Data-Intensive Applications", writing: "Substack", reading: "The Bell Jar" }
+        },
+        {
+          method: "get",
+          path: "/links",
+          summary: "Socials & contact",
+          params: [],
+          highlights: [
+            { icon: "💼", title: "LinkedIn", text: "<a href='https://www.linkedin.com/in/bhavika-jangid' target='_blank' rel='noopener'>linkedin.com/in/bhavika-jangid</a>" },
+            { icon: "🐦", title: "X", text: "<a href='https://x.com/bhavika_jangid_' target='_blank' rel='noopener'>@bhavika_jangid_</a>" },
+            { icon: "📸", title: "Instagram", text: "<a href='https://www.instagram.com/loggedbybhav' target='_blank' rel='noopener'>@loggedbybhav</a>" },
+            { icon: "▶️", title: "YouTube", text: "<a href='https://www.youtube.com/@bhavikajangid1' target='_blank' rel='noopener'>@bhavikajangid1</a>" },
+            { icon: "📮", title: "Email", text: "<a href='mailto:bhavikajangid02@gmail.com'>bhavikajangid02@gmail.com</a>" }
+          ],
+          metrics: [],
+          response: {
+            email: "bhavikajangid02@gmail.com",
+            linkedin: "linkedin.com/in/bhavika-jangid",
+            x: "x.com/bhavika_jangid_",
+            instagram: "instagram.com/loggedbybhav",
+            youtube: "youtube.com/@bhavikajangid1",
+            substack: "bhavikajangid.substack.com"
+          }
+        }
+      ]
+    }
+  ];
+
+  var schemas = [
+    {
+      name: "Skills",
+      props: [
+        ["backend","string[]",["FastAPI","REST API Design","Microservices","Async (Celery)","Dependency Injection","JWT Auth","Stateless Services"]],
+        ["platform_cloud","string[]",["GCP (GKE, Cloud Run, Workflows, BigQuery, Vertex AI)","Kubernetes","Docker","CI/CD","Python SDK Eng.","Vault"]],
+        ["data","string[]",["PostgreSQL","AlloyDB","Redis","MongoDB","Snowflake","BigQuery"]],
+        ["observability","string[]",["OpenTelemetry","Prometheus","Cloud Trace","Distributed Tracing","SLA / RCA"]],
+        ["agent_systems","string[]",["Vertex AI Agent Engine","ADK","MCP (Atlassian/Jira)","Tool Invocation","LLM APIs"]],
+        ["languages","string[]",["Python","JavaScript","C / C++","SQL"]]
+      ]
+    },
+    {
+      name: "Education",
+      props: [
+        ["institution","string",["MNIT Jaipur"]],
+        ["degree","string",["B.Tech, Electronics & Communication Engineering"]],
+        ["year","integer",["2024"]],
+        ["cgpa","number",["7.73 / 10"]],
+        ["certification","string",["Architecting with Google Kubernetes Engine — Coursera"]]
+      ]
+    }
+  ];
+
+  // ---------- helpers ----------
+  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+  function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+  function highlight(obj) {
+    var json = JSON.stringify(obj, null, 2);
+    json = esc(json);
+    json = json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false)\b|\bnull\b|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g, function (m) {
+      var cls = "jn";
+      if (/^"/.test(m)) { cls = /:$/.test(m) ? "jk" : "js"; }
+      else if (/true|false/.test(m)) { cls = "jb"; }
+      else if (/null/.test(m)) { cls = "ju"; }
+      return '<span class="' + cls + '">' + m + '</span>';
+    });
+    json = json.replace(/([{}\[\],])/g, '<span class="jp">$1</span>');
+    return json;
+  }
+
+  // ---------- render info chips + contacts ----------
+  var chipWrap = document.getElementById("chips");
+  skillBadges.forEach(function (s) { chipWrap.appendChild(el("span", "chip", esc(s))); });
+  var contactWrap = document.getElementById("contact");
+  contacts.forEach(function (c) {
+    var a = el("a", null, '<span class="k">' + c.k + ':</span> ' + esc(c.label));
+    a.href = c.href; if (/^http/.test(c.href)) { a.target = "_blank"; a.rel = "noopener"; }
+    contactWrap.appendChild(a);
+  });
+
+  // ---------- render spec ----------
+  var specRoot = document.getElementById("spec");
+
+  tags.forEach(function (tag) {
+    var section = el("section", "tag" + (tag.open ? "" : " collapsed"));
+    var head = el("div", "tag-head");
+    head.innerHTML = '<h2>' + esc(tag.name) + '</h2><span class="tag-desc">' + esc(tag.desc) + '</span><span class="chevron">▼</span>';
+    var ops = el("div", "ops");
+    var opsInner = el("div", "ops-inner");
+    ops.appendChild(opsInner);
+
+    head.addEventListener("click", function () { section.classList.toggle("collapsed"); });
+    section.appendChild(head);
+    section.appendChild(ops);
+
+    tag.ops.forEach(function (op) {
+      var card = el("div", "op collapsed");
+      card.setAttribute("data-m", op.method);
+      card.setAttribute("data-search", (op.path + " " + tag.name + " " + op.summary).toLowerCase());
+
+      var oh = el("div", "op-head");
+      oh.innerHTML = '<span class="method">' + op.method + '</span>' +
+        '<span class="path">' + esc(op.path) + '</span>' +
+        '<span class="op-summary">' + esc(op.summary) + '</span>' +
+        '<span class="chevron">▼</span>';
+
+      var body = el("div", "op-body");
+      var bodyInner = el("div", "op-body-inner");
+      var content = el("div", "op-content");
+
+      // description
+      content.appendChild(el("h4", null, "Description"));
+      var ul = el("ul", "desc-list");
+      op.highlights.forEach(function (h) {
+        var li = el("li");
+        li.innerHTML = '<span class="icon">' + h.icon + '</span><span><b>' + h.title + '</b> — ' + h.text + '</span>';
+        ul.appendChild(li);
+      });
+      content.appendChild(ul);
+
+      // metrics
+      if (op.metrics && op.metrics.length) {
+        var mWrap = el("div", "metrics");
+        op.metrics.forEach(function (m) {
+          mWrap.appendChild(el("div", "metric", '<span class="num">' + esc(m[0]) + '</span><span class="lbl">' + esc(m[1]) + '</span>'));
+        });
+        content.appendChild(mWrap);
+      }
+
+      // parameters
+      if (op.params && op.params.length) {
+        content.appendChild(el("h4", null, "Parameters"));
+        var table = el("table", "params");
+        op.params.forEach(function (p) {
+          var tr = el("tr");
+          tr.innerHTML = '<td class="pname">' + esc(p[0]) + '</td><td class="ptype">' + esc(p[1]) + '</td><td>' + esc(p[2]) + '</td>';
+          table.appendChild(tr);
+        });
+        content.appendChild(table);
+      }
+
+      // try it out -> response
+      content.appendChild(el("h4", null, "Responses"));
+      var tryBtn = el("button", "trybtn", "Try it out");
+      content.appendChild(tryBtn);
+
+      var respWrap = el("div", "response hidden");
+      var t = (Math.random() * 40 + 8).toFixed(0);
+      respWrap.innerHTML = '<div class="resp-status"><span class="code-ok">200</span><span>OK</span><span class="resp-time">· ' + t + 'ms</span></div>';
+      respWrap.appendChild(el("pre", "json", highlight(op.response)));
+      content.appendChild(respWrap);
+
+      var executed = false;
+      tryBtn.addEventListener("click", function () {
+        if (!executed) { respWrap.classList.remove("hidden"); tryBtn.textContent = "Cancel"; executed = true; }
+        else { respWrap.classList.add("hidden"); tryBtn.textContent = "Try it out"; executed = false; }
+      });
+
+      oh.addEventListener("click", function () { card.classList.toggle("open"); card.classList.toggle("collapsed"); });
+
+      bodyInner.appendChild(content);
+      body.appendChild(bodyInner);
+      card.appendChild(oh);
+      card.appendChild(body);
+      opsInner.appendChild(card);
+    });
+
+    specRoot.appendChild(section);
+  });
+
+  // ---------- render schemas ----------
+  var schemaList = document.getElementById("schemaList");
+  schemas.forEach(function (sc) {
+    var box = el("div", "schema");
+    var sh = el("div", "schema-head");
+    sh.innerHTML = '<span class="chevron">▼</span><span class="sname">' + esc(sc.name) + '</span><span class="sbrace">{ ... }</span>';
+    var sb = el("div", "schema-body");
+    var sbi = el("div", "schema-body-inner");
+    var props = el("div", "schema-props");
+    sc.props.forEach(function (p) {
+      var row = el("div", "prop");
+      var vals = p[2].map(function (v) { return '<span class="tok">' + esc(v) + '</span>'; }).join("");
+      row.innerHTML = '<span class="pk">' + esc(p[0]) + '</span><span class="pt">' + esc(p[1]) + '</span><span class="pv">' + vals + '</span>';
+      props.appendChild(row);
+    });
+    sbi.appendChild(props);
+    sb.appendChild(sbi);
+    sh.addEventListener("click", function () { box.classList.toggle("open"); });
+    box.appendChild(sh);
+    box.appendChild(sb);
+    schemaList.appendChild(box);
+  });
+
+  // ---------- filter ----------
+  document.getElementById("filterInput").addEventListener("input", function (e) {
+    var q = e.target.value.trim().toLowerCase();
+    document.querySelectorAll(".tag").forEach(function (tagEl) {
+      var anyVisible = false;
+      tagEl.querySelectorAll(".op").forEach(function (opEl) {
+        var match = !q || opEl.getAttribute("data-search").indexOf(q) !== -1;
+        opEl.classList.toggle("hidden", !match);
+        if (match) anyVisible = true;
+      });
+      tagEl.classList.toggle("hidden", !anyVisible);
+      if (q && anyVisible) tagEl.classList.remove("collapsed");
+    });
+  });
+
+  // ---------- theme toggle ----------
+  var themeBtn = document.getElementById("themeBtn");
+  themeBtn.addEventListener("click", function () {
+    var root = document.documentElement;
+    var current = root.getAttribute("data-theme");
+    if (!current) {
+      current = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    root.setAttribute("data-theme", current === "dark" ? "light" : "dark");
+  });
+
+  // ---------- explore / authorize easter eggs ----------
+  document.getElementById("exploreBtn").addEventListener("click", function () {
+    document.querySelectorAll(".tag").forEach(function (t) { t.classList.remove("collapsed"); });
+  });
+  document.getElementById("authBtn").addEventListener("click", function () {
+    this.innerHTML = 'Authorized <span aria-hidden="true">🔒</span>';
+    var self = this;
+    setTimeout(function () { self.innerHTML = 'Authorize <span aria-hidden="true">🔓</span>'; }, 1600);
+  });
+})();
+</script>
