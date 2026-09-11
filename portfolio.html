@@ -163,11 +163,11 @@
 
   .op-content h4 { text-transform: uppercase; letter-spacing: .6px; font-size: 12px; color: var(--muted); margin: 18px 0 8px; font-weight: 700; }
   .op-content h4:first-child { margin-top: 0; }
-  .desc-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .desc-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 13px; }
   .desc-list li { display: flex; gap: 10px; align-items: flex-start; }
   .desc-list .icon { flex: none; font-size: 15px; line-height: 1.5; }
   .desc-list b { color: var(--text-strong); }
-  .metrics { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 2px; }
+  .metrics { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 4px; }
   .metric { background: var(--surface-3); border: 1px solid var(--border); border-radius: 6px; padding: 6px 11px; display: flex; flex-direction: column; line-height: 1.15; }
   .metric .num { font-family: var(--mono); font-weight: 800; color: var(--brand-strong); font-size: 16px; }
   .metric .lbl { font-size: 11px; color: var(--muted); }
@@ -278,7 +278,7 @@
   <div class="topbar-inner">
     <div class="brand"><span class="bolt">⚡</span> Bhavika Jangid</div>
     <div class="explore">
-      <input value="https://bhavika.dev/openapi.json" spellcheck="false" aria-label="OpenAPI spec URL">
+      <input value="https://bhavikajangid.github.io/fastapi-resume/" spellcheck="false" aria-label="OpenAPI spec URL">
       <button type="button" id="exploreBtn">Explore</button>
     </div>
     <button class="authorize" type="button" id="authBtn">Authorize <span aria-hidden="true">🔓</span></button>
@@ -300,7 +300,7 @@
     <section class="info">
       <h1>Bhavika Jangid <span class="ver">v2.0</span> <span class="oas">OAS 3.1</span></h1>
       <div class="tagline">Scaling backend systems &amp; agentic workflows</div>
-      <div class="spec-url">[ Base URL: bhavika.dev/api ] &nbsp;·&nbsp; /openapi.json</div>
+      <div class="spec-url">[ Base URL: https://bhavikajangid.github.io/fastapi-resume/ ] &nbsp;·&nbsp; /openapi.json</div>
       <div class="info-desc">
         <p>Backend engineer with <b>2+ years</b> building distributed systems and API platforms at scale on GCP and Kubernetes. Designs microservices, infrastructure-management APIs, and agent-driven automation — architecting foundational platforms, collaborating across <b>20+ teams</b>, and driving high standards for reliability and code quality.</p>
         <div class="chips" id="chips"></div>
@@ -309,7 +309,7 @@
       <div class="servers">
         <label for="serverSel">Servers</label>
         <select id="serverSel">
-          <option value="">https://bhavika.dev &nbsp;- Portfolio</option>
+          <option value="">https://bhavikajangid.github.io/fastapi-resume/ &nbsp;- Portfolio</option>
           <option value="https://www.linkedin.com/in/bhavika-jangid">https://linkedin.com/in/bhavika-jangid &nbsp;- LinkedIn</option>
           <option value="mailto:bhavikajangid02@gmail.com">bhavikajangid02@gmail.com &nbsp;- Email</option>
           <option value="https://x.com/bhavika_jangid_">https://x.com/bhavika_jangid_ &nbsp;- X</option>
@@ -524,7 +524,7 @@
   }
 
   function curlFor(op) {
-    var base = "https://bhavika.dev/api";
+    var base = "https://bhavikajangid.github.io/fastapi-resume";
     var m = op.method.toUpperCase();
     return '<span class="flag">curl</span> -X ' + m + ' <span class="url">"' + base + op.path + '"</span> \\\n' +
            '  -H <span class="flag">"accept: application/json"</span>';
@@ -639,7 +639,7 @@
           curlWrap.innerHTML = '<button class="copy" type="button">Copy</button><pre class="curl">' + curlFor(op) + '</pre>';
           respWrap.appendChild(curlWrap);
           curlWrap.querySelector(".copy").addEventListener("click", function () {
-            var txt = "curl -X " + op.method.toUpperCase() + ' "https://bhavika.dev/api' + op.path + '" -H "accept: application/json"';
+            var txt = "curl -X " + op.method.toUpperCase() + ' "https://bhavikajangid.github.io/fastapi-resume' + op.path + '" -H "accept: application/json"';
             var self = this;
             function ok(){ self.textContent = "Copied!"; setTimeout(function(){ self.textContent = "Copy"; }, 1400); }
             if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).then(ok, ok); } else { ok(); }
