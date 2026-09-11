@@ -91,8 +91,7 @@
   .nav-actions button { flex: 1; font-family: var(--sans); font-size: 11.5px; font-weight: 700; color: var(--muted); background: var(--surface-3); border: 1px solid var(--border); border-radius: 5px; padding: 6px 4px; cursor: pointer; }
   .nav-actions button:hover { color: var(--brand-strong); border-color: var(--brand); }
   .nav-group { margin-bottom: 16px; }
-  .nav-group > .nav-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--muted); text-transform: lowercase; padding: 4px 6px; display: block; border-left: 2px solid transparent; transition: color .15s, border-color .15s; }
-  .nav-group.active-group > .nav-tag { color: var(--brand-strong); border-left-color: var(--brand); }
+  .nav-group > .nav-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--text-strong); text-transform: lowercase; padding: 4px 6px; display: block; }
   .nav-link { display: flex; align-items: center; gap: 8px; padding: 4px 6px 4px 8px; border-radius: 5px; cursor: pointer; color: var(--text); font-size: 12.5px; border-left: 2px solid transparent; }
   .nav-link:hover { background: var(--surface-3); text-decoration: none; }
   .nav-link.active { background: var(--brand-tint); border-left-color: var(--brand); }
@@ -698,7 +697,7 @@
 
   schemas.forEach(function (sc) {
     var sid = "schema-" + sc.name.toLowerCase();
-    var box = el("div", "schema");
+    var box = el("div", "schema open");
     box.id = sid;
     var sh = el("div", "schema-head");
     sh.innerHTML = '<span class="chevron">▼</span><span class="sname">' + esc(sc.name) + '</span><span class="sbrace">{ ... }</span>';
@@ -825,13 +824,7 @@
 
   function setActive(id) {
     navLinks.forEach(function (l) {
-      var on = l.getAttribute("href") === "#" + id;
-      l.classList.toggle("active", on);
-      if (on) { var g = l.closest(".nav-group"); if (g) g.classList.add("active-group"); }
-    });
-    // recompute group highlight (only the group holding the active link stays lit)
-    document.querySelectorAll(".nav-group").forEach(function (g) {
-      g.classList.toggle("active-group", !!g.querySelector(".nav-link.active"));
+      l.classList.toggle("active", l.getAttribute("href") === "#" + id);
     });
   }
 
