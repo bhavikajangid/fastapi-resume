@@ -1,3 +1,5 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23009688'/%3E%3Cpath%20d='M35%206%20L14%2037%20h13%20l-6%2021%2023%20-33%20h-13%20z'%20fill='white'/%3E%3C/svg%3E">
 <title>Bhavika Jangid · API Docs</title>
 <style>
@@ -258,13 +260,39 @@
   @keyframes reveal { to { opacity: 1; transform: none; } }
 
   @media (max-width: 900px) {
-    .layout { grid-template-columns: 1fr; }
+    .layout { grid-template-columns: 1fr; gap: 0; }
     .sidebar { display: none; }
   }
   @media (max-width: 680px) {
     .explore { display: none; }
-    .info h1 { font-size: 26px; }
+    .authorize { margin-left: auto; }
+    .topbar-inner { padding: 0 14px; gap: 10px; }
+    .brand { font-size: 16px; gap: 8px; }
+    .layout { padding: 0 14px; }
+    .content { padding: 18px 0 60px; }
+    .info h1 { font-size: 26px; gap: 8px; }
+    .tagline { font-size: 15px; }
+    .spec-url .spec-item { display: block; }
+    .spec-url .spec-sep { display: none; }
     .op-summary { display: none; }
+    .op-head { gap: 10px; padding: 8px 10px; }
+    .method { width: 58px; font-size: 11px; padding: 6px 0; }
+    .path { font-size: 13px; }
+    .op-content { padding: 4px 14px 18px; }
+    .tag-head .tag-desc { display: none; }
+    .filter { max-width: none; }
+    .modal-foot { flex-wrap: wrap; }
+  }
+  @media (max-width: 420px) {
+    .brand .bolt { width: 22px; height: 22px; font-size: 13px; }
+    .brand { font-size: 15px; }
+    .authorize { padding: 0 12px; font-size: 12px; }
+    .info h1 { font-size: 23px; }
+    .ver, .oas { font-size: 11px; }
+    .spec-url { font-size: 12px; }
+    .method { width: 52px; }
+    .metric { flex: 1 1 calc(50% - 8px); }
+    footer { flex-direction: column; }
   }
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; animation: none !important; }
@@ -299,7 +327,13 @@
     <section class="info">
       <h1>Bhavika Jangid <span class="ver">v2.0</span> <span class="oas">OAS 3.1</span></h1>
       <div class="tagline">Scaling backend systems &amp; agentic workflows</div>
-      <div class="spec-url">[ Base URL: <a href="https://www.linkedin.com/in/bhavika-jangid" target="_blank" rel="noopener">linkedin.com/in/bhavika-jangid</a> ] &nbsp;·&nbsp; <a href="mailto:bhavikajangid02@gmail.com">bhavikajangid02@gmail.com</a> &nbsp;·&nbsp; <a href="https://x.com/bhavika_jangid_" target="_blank" rel="noopener">x.com/bhavika_jangid_</a></div>
+      <div class="spec-url">
+        <span class="spec-item">[ <a href="https://www.linkedin.com/in/bhavika-jangid" target="_blank" rel="noopener">linkedin.com/in/bhavika-jangid</a> ]</span>
+        <span class="spec-sep">&nbsp;·&nbsp;</span>
+        <span class="spec-item">[ <a href="mailto:bhavikajangid02@gmail.com">bhavikajangid02@gmail.com</a> ]</span>
+        <span class="spec-sep">&nbsp;·&nbsp;</span>
+        <span class="spec-item">[ <a href="https://x.com/bhavika_jangid_" target="_blank" rel="noopener">x.com/bhavika_jangid_</a> ]</span>
+      </div>
       <div class="info-desc">
         <p>Backend engineer with <b>2+ years</b> building distributed systems and API platforms at scale on GCP and Kubernetes. Designs microservices, infrastructure-management APIs, and agent-driven automation — architecting foundational platforms, collaborating across <b>20+ teams</b>, and driving high standards for reliability and code quality.</p>
         <div class="chips" id="chips"></div>
